@@ -1,0 +1,44 @@
+robot_driver_node:
+  ros__parameters:
+    base_frame: "base_link"
+    tool_frame: "wrist3_link"
+    move_group: "fairino5_v6_group"
+    joint_names: '["j1", "j2", "j3", "j4", "j5", "j6"]'
+    follow_joint_trajectory_action_name: "fairino5_controller/follow_joint_trajectory"
+
+    # 로봇 방향 판별을 위한 파라미터
+    robot_direction:
+      base_joint_index: 0
+      elbow_joint_index: 2
+      left_angle_min: 180.0
+      left_angle_max: 360.0
+      flipped_by_elbow_positive: true
+      left_by_angle_range: false
+
+    posj:
+      left:
+        flipped:
+          home: '[-90.0, -120.0, 120.0, -90.0, -90.0, 90.0]'
+          safe: '[-90.0, -120.0, 120.0, -90.0, -90.0, 90.0]'
+          recovery: '[-90.0, -90.0, 90.0, -90.0, 0.0, 0.0]'
+        normal:
+          flipped1: '[-80.0, -180.0, 0.0, -90.0, 0.0, 0.0]'
+          flipped2: '[-80.0, -180.0, 120.0, -90.0, 0.0, 0.0]'
+          flipped3: '[-90.0, -120.0, 120.0, -90.0, 0.0, 0.0]'
+          home: '[-90.0, -60.0, -120.0, -90.0, 90.0, -90.0]'
+          safe: '[-90.0, -60.0, -120.0, -90.0, 90.0, -90.0]'
+          zero: '[-90.0, -180.0, 0.0, -90.0, 0.0, 0.0]'
+          recovery: '[-90.0, -90.0, -90.0, -90.0, 0.0, -90.0]'
+      right:
+        flipped:
+          home: '[90.0, -60.0, -120.0, -90.0, 90.0, 90.0]'
+          safe: '[90.0, -60.0, -120.0, -90.0, 90.0, 90.0]'
+          recovery: '[90.0, -90.0, -90.0, -90.0, 0.0, 0.0]'
+        normal:
+          flipped1: '[80.0, 0.0, 0.0, -90.0, 0.0, 0.0]'
+          flipped2: '[80.0, 0.0, -120.0, -90.0, 0.0, 0.0]'
+          flipped3: '[90.0, -60.0, -120.0, -90.0, 0.0, 0.0]'
+          home: '[90.0, -120.0, 120.0, -90.0, -90.0, -90.0]'
+          safe: '[90.0, -120.0, 120.0, -90.0, -90.0, -90.0]'
+          zero: '[90.0, 0.0, 0.0, -90.0, 0.0, 0.0]'
+          recovery: '[90.0, -90.0, 90.0, -90.0, 0.0, -90.0]'

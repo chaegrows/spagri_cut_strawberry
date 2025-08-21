@@ -1,0 +1,6 @@
+farm_name: office_farm
+robot_name: rb_robot
+work_name: harvesting_pollination
+farm_spec:
+robot_spec:
+work_spec:

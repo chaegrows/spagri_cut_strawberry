@@ -1,0 +1,274 @@
+#!/usr/bin/env python3
+from mflib.common.behavior_tree_impl_v2 import BehaviorTreeServerNodeV2
+import rclpy
+import time
+
+from mf_msgs.msg import BehaviorTreeStatus
+from config.common.leaves.leaf_actions import LeafActionLookup
+from mflib.common.behavior_tree_impl_v2 import BehaviorTreeServerNodeV2
+from mflib.common.behavior_tree_context import BehaviorTreeContext
+from mflib.common.mf_base import raise_with_log
+from typing import Optional, Dict
+from config.common.specs.farm_def import Sector
+from config.common.specs.work_def import ALLOWED_WORKS
+from mflib.common.tf import ROS2TF
+
+ISU_LEFT_Y_MIN = 1.7
+
+class JobManagerNode(BehaviorTreeServerNodeV2):
+  repo = 'mf_common'
+  node_name = 'job_manager_node'
+  def __init__(self, run_mode):
+    super().__init__(run_mode)
+    self.mark_heartbeat(0)
+    self.ros2tf = ROS2TF(self) # isu2025
+
+    self.if_do_scheduled_called = None
+
+  @BehaviorTreeServerNodeV2.available_action()
+  def set_default_sector(self, 
+                   input_dict: Optional[Dict], 
+                   target_sector: Sector, 
+                   target_work: ALLOWED_WORKS):
+    sector_default = self.job_manager.default_job.sector_default
+    if sector_default is None:
+      raise_with_log(self.mf_logger, "No default sector found in job manager")
+
+    self.mf_logger.info(f"Setting default sector to {sector_default}")
+    self.get_context().target_sector = sector_default
+    return BehaviorTreeStatus.TASK_STATUS_SUCCESS, {}
+  
+  @BehaviorTreeServerNodeV2.available_action()
+  def set_default_work(self, 
+                   input_dict: Optional[Dict], 
+                   target_sector: Sector, 
+                   target_work: ALLOWED_WORKS):
+    work_default = self.job_manager.default_job.work_default
+    if work_default is None:
+      raise_with_log(self.mf_logger, "No default work found in job manager")
+
+    self.mf_logger.info(f"Setting default sector to {work_default}")
+    self.get_context().target_work = work_default
+    return BehaviorTreeStatus.TASK_STATUS_SUCCESS, {}
+  
+  @BehaviorTreeServerNodeV2.available_action()
+  def schedule_simple(self,
+                      input_dict: Optional[Dict], 
+                   target_sector: Sector, 
+                   target_work: ALLOWED_WORKS):
+    # load default work
+    work_default = self.job_manager.default_job.work_default
+    if work_default is None:
+      raise_with_log(self.mf_logger, "No default work found in job manager")
+
+    # schedule
+    rule = 'simple'
+    self.mf_logger.info(f"Schedule jobs with rule: '{rule}'")
+    self.job_manager.create_schedule(work_default, rule)
+    return BehaviorTreeStatus.TASK_STATUS_SUCCESS, {}
+
+  @BehaviorTreeServerNodeV2.available_action()
+  def schedule_only_right_hard(self,
+                      input_dict: Optional[Dict], 
+                   target_sector: Sector, 
+                   target_work: ALLOWED_WORKS):
+    # load default work
+    work_default = self.job_manager.default_job.work_default
+    if work_default is None:
+      raise_with_log(self.mf_logger, "No default work found in job manager")
+
+    # schedule
+    rule = 'only_right_hard'
+    self.mf_logger.info(f"Schedule jobs with rule: '{rule}'")
+    self.job_manager.create_schedule(work_default, rule)
+    return BehaviorTreeStatus.TASK_STATUS_SUCCESS, {}
+
+  @BehaviorTreeServerNodeV2.available_action()  
+  def schedule_only_left_hard(self,
+                      input_dict: Optional[Dict], 
+                   target_sector: Sector, 
+                   target_work: ALLOWED_WORKS):
+    # load default work
+    work_default = self.job_manager.default_job.work_default
+    if work_default is None:
+      raise_with_log(self.mf_logger, "No default work found in job manager")
+
+    # schedule
+    rule = 'only_left_hard'
+    self.mf_logger.info(f"Schedule jobs with rule: '{rule}'")
+    self.job_manager.create_schedule(work_default, rule)
+    return BehaviorTreeStatus.TASK_STATUS_SUCCESS, {}
+
+  @BehaviorTreeServerNodeV2.available_action()
+  def schedule_only_left(self,
+                      input_dict: Optional[Dict], 
+                   target_sector: Sector, 
+                   target_work: ALLOWED_WORKS):
+    # load default work
+    work_default = self.job_manager.default_job.work_default
+    if work_default is None:
+      raise_with_log(self.mf_logger, "No default work found in job manager")
+
+    # schedule
+    rule = 'only_left'
+    self.mf_logger.info(f"Schedule jobs with rule: '{rule}'")
+    self.job_manager.create_schedule(work_default, rule)
+    return BehaviorTreeStatus.TASK_STATUS_SUCCESS, {}
+
+  @BehaviorTreeServerNodeV2.available_action()
+  def schedule_only_right(self,
+                      input_dict: Optional[Dict], 
+                   target_sector: Sector, 
+                   target_work: ALLOWED_WORKS):
+    # load default work
+    work_default = self.job_manager.default_job.work_default
+    if work_default is None:
+      raise_with_log(self.mf_logger, "No default work found in job manager")
+
+    # schedule
+    rule = 'only_right'
+    self.mf_logger.info(f"Schedule jobs with rule: '{rule}'")
+    self.job_manager.create_schedule(work_default, rule)
+    return BehaviorTreeStatus.TASK_STATUS_SUCCESS, {}
+  @BehaviorTreeServerNodeV2.available_action()
+  def schedule_only_demo(self,
+                      input_dict: Optional[Dict], 
+                   target_sector: Sector, 
+                   target_work: ALLOWED_WORKS):
+    # load default work
+    work_default = self.job_manager.default_job.work_default
+    if work_default is None:
+      raise_with_log(self.mf_logger, "No default work found in job manager")
+
+    # schedule
+    rule = 'only_demo'
+    self.mf_logger.info(f"Schedule jobs with rule: '{rule}'")
+    self.job_manager.create_schedule(work_default, rule)
+    return BehaviorTreeStatus.TASK_STATUS_SUCCESS, {}
+  
+  @BehaviorTreeServerNodeV2.available_action()
+  def schedule_real_harvest(self,
+                      input_dict: Optional[Dict], 
+                   target_sector: Sector, 
+                   target_work: ALLOWED_WORKS):
+    # load default work
+    work_default = self.job_manager.default_job.work_default
+    if work_default is None:
+      raise_with_log(self.mf_logger, "No default work found in job manager")
+
+    # schedule
+    rule = 'real_harvest'
+    self.mf_logger.info(f"Schedule jobs with rule: '{rule}'")
+    self.job_manager.create_schedule(work_default, rule)
+    return BehaviorTreeStatus.TASK_STATUS_SUCCESS, {}
+  
+  @BehaviorTreeServerNodeV2.available_action()
+  def schedule_isu_room2(self,
+                      input_dict: Optional[Dict], 
+                   target_sector: Sector, 
+                   target_work: ALLOWED_WORKS):
+    # load default work
+    work_default = self.job_manager.default_job.work_default
+    if work_default is None:
+      raise_with_log(self.mf_logger, "No default work found in job manager")
+
+    # find current pose of robot
+    while rclpy.ok():
+      trans, _ = self.ros2tf.getTF('farm_pcd', 'lidar', timeout=1.0)
+      if len(trans) > 0:
+        break
+      self.mf_logger.info("Waiting for farm to lidar transform")
+    
+    y = trans[1]
+    if y >= ISU_LEFT_Y_MIN:
+      rule = 'only_left'
+    else:
+      rule = 'only_right' 
+
+    # schedule
+    self.mf_logger.info(f"Schedule jobs with rule: '{rule}'")
+    self.job_manager.create_schedule(work_default, rule)
+    return BehaviorTreeStatus.TASK_STATUS_SUCCESS, {'rule': rule}
+  
+  @BehaviorTreeServerNodeV2.available_action()
+  def switch_to_next_job(self,
+                      input_dict: Optional[Dict], 
+                   target_sector: Sector, 
+                   target_work: ALLOWED_WORKS):
+    job_scheduler = self.job_manager.job_scheduler
+    self.mf_logger.info(f"job_scheduler: {job_scheduler}")
+    next_sector, next_work = job_scheduler.switch_to_next_job()
+    if next_sector is None or next_work is None:
+      self.mf_logger.info("No next job found")
+      return BehaviorTreeStatus.TASK_STATUS_FAILURE, {}
+    else:
+      context = self.get_context()
+      context.target_sector = next_sector
+      context.target_work = next_work
+      self.mf_logger.info(f"Switching to next job: {next_sector}, {next_work}")
+      return BehaviorTreeStatus.TASK_STATUS_SUCCESS, {}
+    
+  @BehaviorTreeServerNodeV2.available_action()
+  def wait_gui(self,
+                      input_dict: Optional[Dict], 
+                   target_sector: Sector, 
+                   target_work: ALLOWED_WORKS):
+    self.if_do_scheduled_called = False
+    while rclpy.ok() and not self.if_do_scheduled_called:
+      self.mf_logger.info("Waiting for do_schedule service is called")
+      time.sleep(1)
+    
+    return BehaviorTreeStatus.TASK_STATUS_SUCCESS, {}
+    
+  @BehaviorTreeServerNodeV2.available_service()
+  def do_schedule(self, args_json: Optional[dict] = None):
+    self.mf_logger.info("Doing some fancy scheduling")
+    self.if_do_scheduled_called = True
+
+    return {}
+
+def main(args=None):
+  rclpy.init(args=args)
+
+  # run_mode = 'standalone'
+  run_mode = 'server'
+  node = JobManagerNode(run_mode)
+  if run_mode == 'standalone':
+    context = BehaviorTreeContext()
+    lookup_table = LeafActionLookup.build_leaf_action_lookup_instance()
+    node.start_ros_thread(async_spin=True)
+
+
+    set_default_sector = lookup_table.find(action_name='set_default_sector')[0]
+    set_default_work = lookup_table.find(action_name='set_default_work')[0]
+    schedule_simple = lookup_table.find(action_name='schedule_simple')[0]
+    switch_to_next_job = lookup_table.find(action_name='switch_to_next_job')[0]
+    wait_gui = lookup_table.find(action_name='wait_gui')[0]
+
+    context.set_target_leaf_action(set_default_sector)
+    context = node.run_leaf_action(context)
+    # print(context.target_sector)
+
+    context.set_target_leaf_action(set_default_work)
+    context = node.run_leaf_action(context)
+    # print(context.target_sector)
+
+    context.set_target_leaf_action(schedule_simple)
+    context = node.run_leaf_action(context)
+    # print(context.target_sector)
+
+    for _ in range(5):
+      context.set_target_leaf_action(switch_to_next_job)
+      context = node.run_leaf_action(context)
+      # print(context.target_sector)
+    
+    context.set_target_leaf_action(wait_gui)
+    context = node.run_leaf_action(context)
+    print('waiting gui is done!')
+
+  else:
+    node.start_ros_thread(async_spin=False)
+  rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()

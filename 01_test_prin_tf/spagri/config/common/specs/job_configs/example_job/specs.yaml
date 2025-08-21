@@ -1,0 +1,6 @@
+farm_name: example_farm
+robot_name: example_robot
+work_name: example_work
+farm_spec:
+robot_spec:
+work_spec:

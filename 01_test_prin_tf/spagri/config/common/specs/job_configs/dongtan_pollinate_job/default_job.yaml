@@ -1,0 +1,8 @@
+sector_ref:
+  lane_id: 1
+  height_id: 1
+  horizon_id: 1
+  required_viewpoint: right
+  required_flipped: false
+work_ref:
+  name: pollination_generic

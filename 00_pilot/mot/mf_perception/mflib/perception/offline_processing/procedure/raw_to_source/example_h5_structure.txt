@@ -1,0 +1,62 @@
+tw offline_processing $ python3 view_h5.py --h5file /workspace/data/db/source/sensors/250413_room_815/metadata.h5 
+📂 Full HDF5 structure:
+
+[Group]   camera_color_image_raw_compressed
+[Dataset] camera_color_image_raw_compressed/camera_intrinsics (shape=(3, 3), dtype=float32)
+  0.0
+  0.0
+  0.0
+  0.0
+  0.0
+  ... (4 more)
+[Dataset] camera_color_image_raw_compressed/class (shape=(), dtype=|S256) = b'rgb'
+[Dataset] camera_color_image_raw_compressed/directory (shape=(), dtype=|S256) = b'camera_color_image_raw_compressed'
+[Dataset] camera_color_image_raw_compressed/filename_seconds (shape=(56,), dtype=[('filename', 'S256'), ('second', '<f8')])
+  (b'/workspace/data/db/source/sensors/250413_room_815/camera_color_image_raw_compressed/frame000000.png', 1744541096.499000072)
+  (b'/workspace/data/db/source/sensors/250413_room_815/camera_color_image_raw_compressed/frame000001.png', 1744541096.532999992)
+  (b'/workspace/data/db/source/sensors/250413_room_815/camera_color_image_raw_compressed/frame000002.png', 1744541096.566000223)
+  (b'/workspace/data/db/source/sensors/250413_room_815/camera_color_image_raw_compressed/frame000003.png', 1744541096.598999977)
+  (b'/workspace/data/db/source/sensors/250413_room_815/camera_color_image_raw_compressed/frame000004.png', 1744541096.631999969)
+  ... (51 more)
+[Group]   camera_depth_image_raw_compressedDepth
+[Dataset] camera_depth_image_raw_compressedDepth/camera_intrinsics (shape=(3, 3), dtype=float32)
+  0.0
+  0.0
+  0.0
+  0.0
+  0.0
+  ... (4 more)
+[Dataset] camera_depth_image_raw_compressedDepth/class (shape=(), dtype=|S256) = b'depth'
+[Dataset] camera_depth_image_raw_compressedDepth/directory (shape=(), dtype=|S256) = b'camera_depth_image_raw_compressedDepth'
+[Dataset] camera_depth_image_raw_compressedDepth/filename_seconds (shape=(50,), dtype=[('filename', 'S256'), ('second', '<f8')])
+  (b'/workspace/data/db/source/sensors/250413_room_815/camera_depth_image_raw_compressedDepth/frame000000.png', 1744541096.500999928)
+  (b'/workspace/data/db/source/sensors/250413_room_815/camera_depth_image_raw_compressedDepth/frame000001.png', 1744541096.534000158)
+  (b'/workspace/data/db/source/sensors/250413_room_815/camera_depth_image_raw_compressedDepth/frame000002.png', 1744541096.567000151)
+  (b'/workspace/data/db/source/sensors/250413_room_815/camera_depth_image_raw_compressedDepth/frame000003.png', 1744541096.600999832)
+  (b'/workspace/data/db/source/sensors/250413_room_815/camera_depth_image_raw_compressedDepth/frame000004.png', 1744541096.633999825)
+  ... (45 more)
+[Group]   class_to_fields
+[Dataset] class_to_fields/depth (shape=(4,), dtype=|S256)
+  b'class'
+  b'directory'
+  b'filename_seconds'
+  b'camera_intrinsics'
+[Dataset] class_to_fields/lidar3d (shape=(3,), dtype=|S256)
+  b'class'
+  b'directory'
+  b'filename_seconds'
+[Dataset] class_to_fields/rgb (shape=(4,), dtype=|S256)
+  b'class'
+  b'directory'
+  b'filename_seconds'
+  b'camera_intrinsics'
+[Group]   livox_lidar
+[Dataset] livox_lidar/class (shape=(), dtype=|S256) = b'lidar3d'
+[Dataset] livox_lidar/directory (shape=(), dtype=|S256) = b'livox_lidar'
+[Dataset] livox_lidar/filename_seconds (shape=(20,), dtype=[('filename', 'S256'), ('second', '<f8')])
+  (b'/workspace/data/db/source/sensors/250413_room_815/livox_lidar/scan000000', 1744541096.523420095)
+  (b'/workspace/data/db/source/sensors/250413_room_815/livox_lidar/scan000001', 1744541096.635544300)
+  (b'/workspace/data/db/source/sensors/250413_room_815/livox_lidar/scan000002', 1744541096.723516703)
+  (b'/workspace/data/db/source/sensors/250413_room_815/livox_lidar/scan000003', 1744541096.823641300)
+  (b'/workspace/data/db/source/sensors/250413_room_815/livox_lidar/scan000004', 1744541096.923466921)
+  ... (15 more)

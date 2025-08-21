@@ -1,0 +1,42 @@
+node_name: example_bt_server
+
+services:
+
+- service_name: get_server_info
+  input_keys: []
+  output_keys:
+    - server_name
+    - repo
+    - node_name
+    - uptime
+    - version
+  description: Get server information and status
+
+- service_name: calculate
+  input_keys:
+    - operation
+    - a
+    - b
+  output_keys:
+    - operation
+    - a
+    - b
+    - result
+  description: Perform mathematical calculations
+
+- service_name: get_robot_status
+  input_keys: []
+  output_keys:
+    - power
+    - position
+    - is_moving
+  description: Get current robot status
+
+- service_name: update_robot_status
+  input_keys:
+    - power
+    - is_moving
+  output_keys:
+    - status
+    - updated
+  description: Update robot status parameters

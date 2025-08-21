@@ -1,0 +1,79 @@
+repo: mf_manipulator
+node_name: manipulator_node
+actions:
+  - action_name: recovery_to_safe_config
+    input_refs: []
+    description: "recovery_to_safe_config description"
+  - action_name: init_manipulator_pose
+    input_refs: []
+    description: "move_to manipulator safe init pose"
+  - action_name: approach_to_fruit
+    input_refs:
+      - repo: mf_perception
+        node_name: mot_by_bbox_bt_server_node
+        action_name: query_target_frame_id
+        output_name: target_frame_id
+    description: "move harvesting eef from work_pose to harvest_pose"
+  - action_name: retract_to_work_pose
+    input_refs: []
+    description: "move harvesting eef from harvest_pose to work_pose after harvesting"
+  - action_name: init_package
+    input_refs: []
+    description: "init_package description"
+  - action_name: place_to_package
+    input_refs: []
+    description: "place_to_package description"
+  - action_name: look_close_to_target
+    input_refs:
+      - repo: mf_perception
+        node_name: mot_by_bbox_bt_server_node
+        action_name: get_next_waypoint
+        output_name: target_xyz
+      - repo: mf_perception
+        node_name: mot_by_bbox_bt_server_node
+        action_name: get_next_waypoint
+        output_name: waypoint_frame_id
+    description: "move to look close to the target"
+  - action_name: set_home
+    input_refs: []
+    description: "set_home description"
+  - action_name: set_work_pose_upside1
+    input_refs: []
+    description: "set_work_pose_upside description"
+  - action_name: set_work_pose_upside2
+    input_refs: []
+    description: "set_work_pose_upside description"
+  - action_name: set_work_pose_downside1
+    input_refs: []
+    description: "set_work_pose_downside description"
+  - action_name: set_work_pose_downside2
+    input_refs: []
+    description: "set_work_pose_downside description"
+  - action_name: scan_workspace
+    input_refs: []
+    description: "scan_workspace description"
+  - action_name: move_down_to_package
+    input_refs: []
+    description: "move_down_to_package description"
+  - action_name: move_up_from_package
+    input_refs: []
+    description: "move_up_from_package description"
+  - action_name: reset_package
+    input_refs: []
+    description: "reset_package description"
+  - action_name: approach_to_flower
+    input_refs:
+      - repo: mf_perception
+        node_name: mot_by_bbox_bt_server_node
+        action_name: query_target_frame_id
+        output_name: target_frame_id
+    description: "approach_to_flower description"
+  - action_name: set_work_pose_upside_isu2025
+    input_refs: []
+    description: "set_work_pose_upside_isu2025 description"
+  - action_name: set_work_pose_downside_isu2025
+    input_refs: []
+    description: "set_work_pose_downside_isu2025 description"
+  - action_name: scan_linear
+    input_refs: []
+    description: "scan_linear description"

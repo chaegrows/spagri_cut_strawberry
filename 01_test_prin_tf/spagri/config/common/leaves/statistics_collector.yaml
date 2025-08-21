@@ -1,0 +1,15 @@
+repo: mf_common
+node_name: statistics_collector_node
+actions:
+  - action_name: increment_success
+    input_refs: []
+    description: "Increment the number of task success."
+  - action_name: increment_skipped
+    input_refs: []
+    description: "Increment the number of task skipped."
+  - action_name: mark_start
+    input_refs: []
+    description: "Mark the start time of the task."
+  - action_name: mark_end
+    input_refs: []
+    description: "Mark the end time of the task."

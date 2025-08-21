@@ -1,0 +1,10 @@
+node_name: workspace_check_node
+
+services:
+
+- service_name: check_tf_inside_farm_workspace
+  input_keys:
+    - frame_name
+  output_keys:
+    - is_inside
+  description: Check if the tf frame is inside the farm workspace

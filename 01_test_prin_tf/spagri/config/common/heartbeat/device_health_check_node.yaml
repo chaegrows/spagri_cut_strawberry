@@ -1,0 +1,20 @@
+node_name: device_health_check_node
+heartbeats:
+  - value: 1
+    description: lidar subscribe error
+    severity: error
+  - value: 2
+    description: camera subscribe error
+    severity: error
+  - value: 3
+    description: lift subscribe error
+    severity: error
+  - value: 4
+    description: gv subscribe error
+    severity: error
+  - value: 5
+    description: manipulator subscribe error
+    severity: error
+  - value: 6
+    description: endeffector subscribe error
+    severity: error

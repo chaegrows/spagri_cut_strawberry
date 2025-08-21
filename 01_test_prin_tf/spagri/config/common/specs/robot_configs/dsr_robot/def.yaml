@@ -1,0 +1,69 @@
+uuid: robot_uuid
+end_effector:
+  name: endeffector
+  device: /dev/ttyTHS1
+  baudrate: 115200
+  verbose: true
+  reconnect: true
+  reconnect_delay_ms: 1000
+static_transforms:
+- frame_id: gv_base_link
+  child_frame_id: lift_base_link
+  translation:
+  - 0.75
+  - 0.0
+  - 1.15
+  rotation:
+  - 0.0
+  - 0.0
+  - 0.0
+- frame_id: lift_end_link
+  child_frame_id: manipulator_base_link
+  translation:
+  - 0.0
+  - 0.0
+  - 0.0
+  rotation:
+  - 0.0
+  - 0.0
+  - 180.0
+- frame_id: manipulator_base_link
+  child_frame_id: base_link
+  translation:
+  - 0.0
+  - 0.0
+  - 0.0
+  rotation:
+  - 0.0
+  - 0.0
+  - 180.0
+- frame_id: link_6
+  child_frame_id: endeffector
+  translation:
+  - 0.0
+  - 0.0
+  - 0.0
+  rotation:
+  - 180.0
+  - 0.0
+  - -90.0
+- frame_id: endeffector
+  child_frame_id: tcp
+  translation:
+  - 0.25
+  - 0.0
+  - -0.06
+  rotation:
+  - 0.0
+  - 0.0
+  - 0.0
+- frame_id: endeffector
+  child_frame_id: camera_hand_link
+  translation:
+  - 0.085
+  - 0.0
+  - 0.025
+  rotation:
+  - 0.0
+  - 5.0
+  - 0.0

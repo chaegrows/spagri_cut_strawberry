@@ -1,0 +1,6 @@
+repo: mf_common
+node_name: workspace_check_node
+actions:
+  - action_name: initialize_workspace
+    input_refs: []
+    description: "initialize the workspace"

@@ -1,0 +1,5 @@
+node_name: robot_driver_node
+heartbeats:
+- value: 1
+  description: communication_error
+  severity: error

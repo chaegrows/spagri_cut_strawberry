@@ -1,0 +1,30 @@
+schedule_keys: # simple is always supported
+  - only_left
+  - only_right
+  - only_demo
+  - real_harvest
+
+# monitoring schedule
+# only_left:
+#    - l2h1h1rlf0
+
+# only_right:
+#    - l1h1h1rrf0
+
+only_demo:
+   - l2h2h1rlf0
+   - l2h2h1rlf0
+   - l2h2h1rlf0
+   - l2h2h1rlf0
+   - l2h2h1rlf0
+   - l2h2h1rlf0
+   - l2h2h1rlf0
+   - l2h2h1rlf0
+   - l2h2h1rlf0
+   - l2h2h1rlf0
+
+   # - l1h2h1rrf0
+
+real_harvest:
+   - l2h1h1rlf0
+   # - l1h1h1rrf0

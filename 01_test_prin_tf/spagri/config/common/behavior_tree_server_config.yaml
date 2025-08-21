@@ -1,0 +1,10 @@
+status_publish_latency_seconds: 0.05
+heartbeat_publish_latency_seconds: 1
+service_check_interval_latency_ms: 1000
+
+num_executor_threads: 16
+
+on_failure_action: 'raise_value_error' # infinite_wait, raise_value_error
+verbose: False
+
+default_specs: 'afro_harvest_job' # one dir name in /opt/config/specs/job_configs/

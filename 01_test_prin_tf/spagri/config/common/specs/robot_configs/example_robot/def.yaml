@@ -1,0 +1,37 @@
+uuid: robot_uuid
+ground_vehicle:
+  name: gv
+  communication_interface: USB_serial
+  usb_serial_vendor_id: '0x1234'
+  usb_serial_product_id: '0x5678'
+  usb_serial_baudrate: 115200
+  usb_serial_reconnect: true
+  usb_serial_reconnect_delay_ms: 1000
+  usb_serial_verbose: false
+  mid360_lidar_ip: 192.168.5.100
+  standard_linear_velocity: 0.5
+  standard_angular_velocity: 0.5
+  max_linear_velocity: 1.0
+  max_angular_velocity: 0.5
+lift:
+  name: md200lift
+  max_height: 1.0
+  min_height: 0.0
+end_effector:
+  name: endeffector
+  device: /dev/ttyTHS1
+  baudrate: 115200
+  verbose: true
+  reconnect: true
+  reconnect_delay_ms: 1000
+static_transforms:
+- frame_id: your_base_link
+  child_frame_id: my_camera
+  translation:
+  - 0.0
+  - 0.0
+  - 0.0
+  rotation:
+  - 0.0
+  - 0.0
+  - 0.0

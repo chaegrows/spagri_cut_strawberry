@@ -1,0 +1,646 @@
+name: isu2025
+pcd_map_file: isu_room2_250604.pcd
+pcd_viz_map_file: isu_room2_250604.pcd
+racks:
+- rack_id: 1
+  rack_start_xyz:
+  - 1.4
+  - 1.0
+  - 0.8
+  rack_end_xyz:
+  - 3.8
+  - 1.0
+  - 3.05
+  n_horizon: 2
+  n_vertical: 4
+  horizon_poses:
+  - 2.0
+  - 3.2
+  vertical_poses:
+  - 0.8
+  - 1.55
+  - 2.3
+  - 3.05
+  plant_offsets:
+  - 0.0
+  ws_list_xyzwlh:
+  - - 2.0
+    - 1.0
+    - 1.05
+    - 1.0
+    - 0.5
+    - 0.3
+  - - 3.2
+    - 1.0
+    - 1.05
+    - 1.0
+    - 0.5
+    - 0.3
+  - - 2.0
+    - 1.0
+    - 1.8
+    - 1.0
+    - 0.5
+    - 0.3
+  - - 3.2
+    - 1.0
+    - 1.8
+    - 1.0
+    - 0.5
+    - 0.3
+  - - 2.0
+    - 1.0
+    - 2.55
+    - 1.0
+    - 0.5
+    - 0.3
+  - - 3.2
+    - 1.0
+    - 2.55
+    - 1.0
+    - 0.5
+    - 0.3
+  - - 2.0
+    - 1.0
+    - 3.3
+    - 1.0
+    - 0.5
+    - 0.3
+  - - 3.2
+    - 1.0
+    - 3.3
+    - 1.0
+    - 0.5
+    - 0.3
+- rack_id: 2
+  rack_start_xyz:
+  - 1.4
+  - 2.5
+  - 0.8
+  rack_end_xyz:
+  - 3.8
+  - 2.5
+  - 3.05
+  n_horizon: 2
+  n_vertical: 4
+  horizon_poses:
+  - 2.0
+  - 3.2
+  vertical_poses:
+  - 0.8
+  - 1.55
+  - 2.3
+  - 3.05
+  plant_offsets:
+  - 0.0
+  ws_list_xyzwlh:
+  - - 2.0
+    - 2.5
+    - 1.05
+    - 1.0
+    - 0.5
+    - 0.3
+  - - 3.2
+    - 2.5
+    - 1.05
+    - 1.0
+    - 0.5
+    - 0.3
+  - - 2.0
+    - 2.5
+    - 1.8
+    - 1.0
+    - 0.5
+    - 0.3
+  - - 3.2
+    - 2.5
+    - 1.8
+    - 1.0
+    - 0.5
+    - 0.3
+  - - 2.0
+    - 2.5
+    - 2.55
+    - 1.0
+    - 0.5
+    - 0.3
+  - - 3.2
+    - 2.5
+    - 2.55
+    - 1.0
+    - 0.5
+    - 0.3
+  - - 2.0
+    - 2.5
+    - 3.3
+    - 1.0
+    - 0.5
+    - 0.3
+  - - 3.2
+    - 2.5
+    - 3.3
+    - 1.0
+    - 0.5
+    - 0.3
+sectors:
+- rack_id: 1
+  dir_from_rack_to_plants: left
+  horizon_id: 1
+  height_id: 1
+  global_gv_pose:
+  - 1.6
+  - 1.5
+  - 0.0
+  global_height: 1.18
+  required_viewpoint: right
+  required_flipped: false
+  depth_to_plants: 0.5
+- rack_id: 1
+  dir_from_rack_to_plants: left
+  horizon_id: 1
+  height_id: 1
+  global_gv_pose:
+  - 1.6
+  - 1.5
+  - 0.0
+  global_height: 1.18
+  required_viewpoint: right
+  required_flipped: true
+  depth_to_plants: 0.5
+- rack_id: 1
+  dir_from_rack_to_plants: left
+  horizon_id: 2
+  height_id: 1
+  global_gv_pose:
+  - 2.0
+  - 1.5
+  - 0.0
+  global_height: 1.18
+  required_viewpoint: right
+  required_flipped: false
+  depth_to_plants: 0.5
+- rack_id: 1
+  dir_from_rack_to_plants: left
+  horizon_id: 2
+  height_id: 1
+  global_gv_pose:
+  - 2.0
+  - 1.5
+  - 0.0
+  global_height: 1.18
+  required_viewpoint: right
+  required_flipped: true
+  depth_to_plants: 0.5
+- rack_id: 1
+  dir_from_rack_to_plants: left
+  horizon_id: 3
+  height_id: 1
+  global_gv_pose:
+  - 2.4
+  - 1.5
+  - 0.0
+  global_height: 1.18
+  required_viewpoint: right
+  required_flipped: false
+  depth_to_plants: 0.5
+- rack_id: 1
+  dir_from_rack_to_plants: left
+  horizon_id: 3
+  height_id: 1
+  global_gv_pose:
+  - 2.4
+  - 1.5
+  - 0.0
+  global_height: 1.18
+  required_viewpoint: right
+  required_flipped: true
+  depth_to_plants: 0.5
+- rack_id: 1
+  dir_from_rack_to_plants: left
+  horizon_id: 4
+  height_id: 1
+  global_gv_pose:
+  - 2.8
+  - 1.5
+  - 0.0
+  global_height: 1.18
+  required_viewpoint: right
+  required_flipped: false
+  depth_to_plants: 0.5
+- rack_id: 1
+  dir_from_rack_to_plants: left
+  horizon_id: 4
+  height_id: 1
+  global_gv_pose:
+  - 2.8
+  - 1.5
+  - 0.0
+  global_height: 1.18
+  required_viewpoint: right
+  required_flipped: true
+  depth_to_plants: 0.5
+- rack_id: 1
+  dir_from_rack_to_plants: left
+  horizon_id: 5
+  height_id: 1
+  global_gv_pose:
+  - 3.2
+  - 1.5
+  - 0.0
+  global_height: 1.18
+  required_viewpoint: right
+  required_flipped: false
+  depth_to_plants: 0.5
+- rack_id: 1
+  dir_from_rack_to_plants: left
+  horizon_id: 5
+  height_id: 1
+  global_gv_pose:
+  - 3.2
+  - 1.5
+  - 0.0
+  global_height: 1.18
+  required_viewpoint: right
+  required_flipped: true
+  depth_to_plants: 0.5
+- rack_id: 1
+  dir_from_rack_to_plants: left
+  horizon_id: 1
+  height_id: 2
+  global_gv_pose:
+  - 1.6
+  - 1.5
+  - 0.0
+  global_height: 2.67
+  required_viewpoint: right
+  required_flipped: false
+  depth_to_plants: 0.5
+- rack_id: 1
+  dir_from_rack_to_plants: left
+  horizon_id: 1
+  height_id: 2
+  global_gv_pose:
+  - 1.6
+  - 1.5
+  - 0.0
+  global_height: 2.67
+  required_viewpoint: right
+  required_flipped: true
+  depth_to_plants: 0.5
+- rack_id: 1
+  dir_from_rack_to_plants: left
+  horizon_id: 2
+  height_id: 2
+  global_gv_pose:
+  - 2.0
+  - 1.5
+  - 0.0
+  global_height: 2.67
+  required_viewpoint: right
+  required_flipped: false
+  depth_to_plants: 0.5
+- rack_id: 1
+  dir_from_rack_to_plants: left
+  horizon_id: 2
+  height_id: 2
+  global_gv_pose:
+  - 2.0
+  - 1.5
+  - 0.0
+  global_height: 2.67
+  required_viewpoint: right
+  required_flipped: true
+  depth_to_plants: 0.5
+- rack_id: 1
+  dir_from_rack_to_plants: left
+  horizon_id: 3
+  height_id: 2
+  global_gv_pose:
+  - 2.4
+  - 1.5
+  - 0.0
+  global_height: 2.67
+  required_viewpoint: right
+  required_flipped: false
+  depth_to_plants: 0.5
+- rack_id: 1
+  dir_from_rack_to_plants: left
+  horizon_id: 3
+  height_id: 2
+  global_gv_pose:
+  - 2.4
+  - 1.5
+  - 0.0
+  global_height: 2.67
+  required_viewpoint: right
+  required_flipped: true
+  depth_to_plants: 0.5
+- rack_id: 1
+  dir_from_rack_to_plants: left
+  horizon_id: 4
+  height_id: 2
+  global_gv_pose:
+  - 2.8
+  - 1.5
+  - 0.0
+  global_height: 2.67
+  required_viewpoint: right
+  required_flipped: false
+  depth_to_plants: 0.5
+- rack_id: 1
+  dir_from_rack_to_plants: left
+  horizon_id: 4
+  height_id: 2
+  global_gv_pose:
+  - 2.8
+  - 1.5
+  - 0.0
+  global_height: 2.67
+  required_viewpoint: right
+  required_flipped: true
+  depth_to_plants: 0.5
+- rack_id: 1
+  dir_from_rack_to_plants: left
+  horizon_id: 5
+  height_id: 2
+  global_gv_pose:
+  - 3.2
+  - 1.5
+  - 0.0
+  global_height: 2.67
+  required_viewpoint: right
+  required_flipped: false
+  depth_to_plants: 0.5
+- rack_id: 1
+  dir_from_rack_to_plants: left
+  horizon_id: 5
+  height_id: 2
+  global_gv_pose:
+  - 3.2
+  - 1.5
+  - 0.0
+  global_height: 2.67
+  required_viewpoint: right
+  required_flipped: true
+  depth_to_plants: 0.5
+- rack_id: 2
+  dir_from_rack_to_plants: right
+  horizon_id: 1
+  height_id: 1
+  global_gv_pose:
+  - 1.6
+  - 2.0
+  - 0.0
+  global_height: 1.18
+  required_viewpoint: left
+  required_flipped: false
+  depth_to_plants: 0.5
+- rack_id: 2
+  dir_from_rack_to_plants: right
+  horizon_id: 1
+  height_id: 1
+  global_gv_pose:
+  - 1.6
+  - 2.0
+  - 0.0
+  global_height: 1.18
+  required_viewpoint: left
+  required_flipped: true
+  depth_to_plants: 0.5
+- rack_id: 2
+  dir_from_rack_to_plants: right
+  horizon_id: 2
+  height_id: 1
+  global_gv_pose:
+  - 2.0
+  - 2.0
+  - 0.0
+  global_height: 1.18
+  required_viewpoint: left
+  required_flipped: false
+  depth_to_plants: 0.5
+- rack_id: 2
+  dir_from_rack_to_plants: right
+  horizon_id: 2
+  height_id: 1
+  global_gv_pose:
+  - 2.0
+  - 2.0
+  - 0.0
+  global_height: 1.18
+  required_viewpoint: left
+  required_flipped: true
+  depth_to_plants: 0.5
+- rack_id: 2
+  dir_from_rack_to_plants: right
+  horizon_id: 3
+  height_id: 1
+  global_gv_pose:
+  - 2.4
+  - 2.0
+  - 0.0
+  global_height: 1.18
+  required_viewpoint: left
+  required_flipped: false
+  depth_to_plants: 0.5
+- rack_id: 2
+  dir_from_rack_to_plants: right
+  horizon_id: 3
+  height_id: 1
+  global_gv_pose:
+  - 2.4
+  - 2.0
+  - 0.0
+  global_height: 1.18
+  required_viewpoint: left
+  required_flipped: true
+  depth_to_plants: 0.5
+- rack_id: 2
+  dir_from_rack_to_plants: right
+  horizon_id: 4
+  height_id: 1
+  global_gv_pose:
+  - 2.8
+  - 2.0
+  - 0.0
+  global_height: 1.18
+  required_viewpoint: left
+  required_flipped: false
+  depth_to_plants: 0.5
+- rack_id: 2
+  dir_from_rack_to_plants: right
+  horizon_id: 4
+  height_id: 1
+  global_gv_pose:
+  - 2.8
+  - 2.0
+  - 0.0
+  global_height: 1.18
+  required_viewpoint: left
+  required_flipped: true
+  depth_to_plants: 0.5
+- rack_id: 2
+  dir_from_rack_to_plants: right
+  horizon_id: 5
+  height_id: 1
+  global_gv_pose:
+  - 3.2
+  - 2.0
+  - 0.0
+  global_height: 1.18
+  required_viewpoint: left
+  required_flipped: false
+  depth_to_plants: 0.5
+- rack_id: 2
+  dir_from_rack_to_plants: right
+  horizon_id: 5
+  height_id: 1
+  global_gv_pose:
+  - 3.2
+  - 2.0
+  - 0.0
+  global_height: 1.18
+  required_viewpoint: left
+  required_flipped: true
+  depth_to_plants: 0.5
+- rack_id: 2
+  dir_from_rack_to_plants: right
+  horizon_id: 1
+  height_id: 2
+  global_gv_pose:
+  - 1.6
+  - 2.0
+  - 0.0
+  global_height: 2.67
+  required_viewpoint: left
+  required_flipped: false
+  depth_to_plants: 0.5
+- rack_id: 2
+  dir_from_rack_to_plants: right
+  horizon_id: 1
+  height_id: 2
+  global_gv_pose:
+  - 1.6
+  - 2.0
+  - 0.0
+  global_height: 2.67
+  required_viewpoint: left
+  required_flipped: true
+  depth_to_plants: 0.5
+- rack_id: 2
+  dir_from_rack_to_plants: right
+  horizon_id: 2
+  height_id: 2
+  global_gv_pose:
+  - 2.0
+  - 2.0
+  - 0.0
+  global_height: 2.67
+  required_viewpoint: left
+  required_flipped: false
+  depth_to_plants: 0.5
+- rack_id: 2
+  dir_from_rack_to_plants: right
+  horizon_id: 2
+  height_id: 2
+  global_gv_pose:
+  - 2.0
+  - 2.0
+  - 0.0
+  global_height: 2.67
+  required_viewpoint: left
+  required_flipped: true
+  depth_to_plants: 0.5
+- rack_id: 2
+  dir_from_rack_to_plants: right
+  horizon_id: 3
+  height_id: 2
+  global_gv_pose:
+  - 2.4
+  - 2.0
+  - 0.0
+  global_height: 2.67
+  required_viewpoint: left
+  required_flipped: false
+  depth_to_plants: 0.5
+- rack_id: 2
+  dir_from_rack_to_plants: right
+  horizon_id: 3
+  height_id: 2
+  global_gv_pose:
+  - 2.4
+  - 2.0
+  - 0.0
+  global_height: 2.67
+  required_viewpoint: left
+  required_flipped: true
+  depth_to_plants: 0.5
+- rack_id: 2
+  dir_from_rack_to_plants: right
+  horizon_id: 4
+  height_id: 2
+  global_gv_pose:
+  - 2.8
+  - 2.0
+  - 0.0
+  global_height: 2.67
+  required_viewpoint: left
+  required_flipped: false
+  depth_to_plants: 0.5
+- rack_id: 2
+  dir_from_rack_to_plants: right
+  horizon_id: 4
+  height_id: 2
+  global_gv_pose:
+  - 2.8
+  - 2.0
+  - 0.0
+  global_height: 2.67
+  required_viewpoint: left
+  required_flipped: true
+  depth_to_plants: 0.5
+- rack_id: 2
+  dir_from_rack_to_plants: right
+  horizon_id: 5
+  height_id: 2
+  global_gv_pose:
+  - 3.2
+  - 2.0
+  - 0.0
+  global_height: 2.67
+  required_viewpoint: left
+  required_flipped: false
+  depth_to_plants: 0.5
+- rack_id: 2
+  dir_from_rack_to_plants: right
+  horizon_id: 5
+  height_id: 2
+  global_gv_pose:
+  - 3.2
+  - 2.0
+  - 0.0
+  global_height: 2.67
+  required_viewpoint: left
+  required_flipped: true
+  depth_to_plants: 0.5
+lanes:
+- rack_id: 1
+  dir_from_rack_to_plants: left
+  lane_home:
+  - 1.4
+  - 1.5
+  - 0.0
+  lane_end:
+  - 3.8
+  - 1.5
+  - 0.0
+- rack_id: 2
+  dir_from_rack_to_plants: right
+  lane_home:
+  - 1.4
+  - 2.0
+  - 0.0
+  lane_end:
+  - 3.8
+  - 2.0
+  - 0.0

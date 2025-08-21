@@ -1,0 +1,10 @@
+harvesting:
+  work_type: harvesting
+  perception_algorithm: strawberry_harvesting_pollination
+  n_slots: 1
+  name: harvesting_generic
+pollination:
+  work_type: pollination
+  perception_algorithm: strawberry_harvesting_pollination
+  vibration_seconds: 1
+  name: pollination_generic

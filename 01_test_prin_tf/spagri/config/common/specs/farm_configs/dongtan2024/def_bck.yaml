@@ -1,0 +1,192 @@
+name: dongtan2024
+pcd_map_file: 250528dongtan.pcd
+pcd_viz_map_file: 250528dongtan.pcd
+# 5ack|4|4ack|3|3ack|2|2ack|1|1ack
+sectors:
+# - lane_id: 1
+#   height_id: 1
+#   horizon_id: 1
+#   required_viewpoint: right
+#   global_height: 1.15
+#   global_gv_pose:
+#   - 3.0
+#   - 2.6
+#   - 0.0
+#   depth_to_plants: 0.6
+#   configuration:
+#   - 3.0
+#   - 2.6
+#   - 0.0
+#   - 1.0
+#   - 0.25
+#   - 0.2
+
+# - lane_id: 1
+#   height_id: 2
+#   horizon_id: 1
+#   required_viewpoint: right
+#   global_height: 2.35
+#   global_gv_pose:
+#   - 3.0
+#   - 2.6
+#   - 0.0
+#   depth_to_plants: 0.6
+#   configuration:
+#   - 3.0
+#   - 2.6
+#   - 0.0
+#   - 1.0
+#   - 0.25
+#   - 0.2
+
+# - lane_id: 1
+#   height_id: 3
+#   horizon_id: 1
+#   required_viewpoint: right
+#   global_height: 2.41
+#   global_gv_pose:
+#   - 3.0
+#   - 2.6
+#   - 0.0
+#   depth_to_plants: 0.6
+#   configuration:
+#   - 3.0
+#   - 2.6
+#   - 0.0
+#   - 1.0
+#   - 0.25
+#   - 0.2
+
+# - lane_id: 1
+#   height_id: 4
+#   horizon_id: 1
+#   required_viewpoint: right
+#   global_height: 2.41
+#   global_gv_pose:
+#   - 3.0
+#   - 2.6
+#   - 0.0
+#   depth_to_plants: 0.6
+#   configuration:
+#   - 3.0
+#   - 2.6
+#   - 0.0
+#   - 1.0
+#   - 0.25
+#   - 0.2
+
+- lane_id: 1
+  height_id: 1
+  horizon_id: 1
+  required_viewpoint: left
+  global_height: 1.15
+  global_gv_pose:
+  - 3.0
+  - 2.6
+  - 0.0
+  depth_to_plants: 0.6
+  configuration:
+  - 3.0
+  - 2.6
+  - 0.0
+  - 1.0
+  - 0.25
+  - 0.2
+- lane_id: 1
+  height_id: 3
+  horizon_id: 1
+  required_viewpoint: left
+  global_height: 2.35
+  global_gv_pose:
+  - 3.0
+  - 2.6
+  - 0.0
+  depth_to_plants: 0.6
+  configuration:
+  - 3.0
+  - 2.6
+  - 0.0
+  - 1.0
+  - 0.25
+  - 0.2
+
+- lane_id: 1
+  height_id: 1
+  horizon_id: 1
+  required_viewpoint: right
+  global_height: 1.15
+  global_gv_pose:
+  - 3.0
+  - 2.6
+  - 0.0
+  depth_to_plants: 0.6
+  configuration:
+  - 3.0
+  - 2.6
+  - 0.0
+  - 1.0
+  - 0.25
+  - 0.2
+- lane_id: 1
+  height_id: 3
+  horizon_id: 1
+  required_viewpoint: right
+  global_height: 2.35
+  global_gv_pose:
+  - 3.0
+  - 2.6
+  - 0.0
+  depth_to_plants: 0.6
+  configuration:
+  - 3.0
+  - 2.6
+  - 0.0
+  - 1.0
+  - 0.25
+  - 0.2
+
+# - lane_id: 1
+#   height_id: 2
+#   horizon_id: 3
+#   required_viewpoint: right
+#   global_height: 2.35
+#   global_gv_pose:
+#   - 4.2
+#   - 2.6
+#   - 0.0
+#   depth_to_plants: 0.6
+#   configuration:
+#   - 3.0
+#   - 2.6
+#   - 0.0
+#   - 1.0
+#   - 0.25
+#   - 0.2
+# - lane_id: 1
+#   height_id: 2
+#   horizon_id: 4
+#   required_viewpoint: right
+#   global_height: 2.35
+#   global_gv_pose:
+#   - 4.6
+#   - 2.6
+#   - 0.0
+#   depth_to_plants: 0.6
+#   configuration:
+#   - 3.0
+#   - 2.6
+#   - 0.0
+#   - 1.0
+#   - 0.25
+#   - 0.2
+
+lanes:
+- lane_id: 1
+  lane_home:
+  - 3.0
+  - 2.6
+  - 0.0
+  lane_end:
+  - 13.6
+  - 2.6
+  - 0.0

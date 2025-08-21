@@ -1,0 +1,6 @@
+node_name: manipulator_node
+services:
+- service_name: move_manipulator_home_pose
+  input_keys: ['direction', 'to_flipped']
+  output_keys: []
+  description: "Move to home pose (direction: str (left, right), to_flipped: bool)"

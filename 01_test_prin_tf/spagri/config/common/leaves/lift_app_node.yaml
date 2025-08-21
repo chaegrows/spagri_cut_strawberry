@@ -1,0 +1,9 @@
+repo: mf_mobile
+node_name: lift_app_node
+actions:
+  - action_name: set_lift_to_target_sector
+    input_refs: []
+    description: "set_to_target_sector description"
+  - action_name: set_lift_home
+    input_refs: []
+    description: "set_lift_home description"

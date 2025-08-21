@@ -1,0 +1,6 @@
+node_name: job_manager_node
+services:
+- service_name: do_schedule
+  input_keys: []
+  output_keys: []
+  description: Do amazing fancy scheduling!

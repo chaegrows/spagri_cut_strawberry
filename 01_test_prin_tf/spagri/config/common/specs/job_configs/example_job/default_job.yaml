@@ -1,0 +1,9 @@
+sector_ref:
+  lane_id: 1
+  height_id: 1
+  horizon_id: 1
+  required_viewpoint: left
+work_ref:
+  name: example_harvesting
+sector_default:
+work_default:

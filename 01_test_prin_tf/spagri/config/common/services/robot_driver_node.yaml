@@ -1,0 +1,6 @@
+node_name: robot_driver_node
+services:
+- service_name: recover_manipulator
+  input_keys: []
+  output_keys: []
+  description: Move to recovery position

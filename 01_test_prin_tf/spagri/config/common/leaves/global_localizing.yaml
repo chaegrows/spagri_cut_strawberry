@@ -1,0 +1,6 @@
+repo: mf_perception
+node_name: global_localizing
+actions:
+  - action_name: accumulate_and_relocate
+    input_refs: []
+    description: "-"

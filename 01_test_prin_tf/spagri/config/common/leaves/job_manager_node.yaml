@@ -1,0 +1,39 @@
+repo: mf_common
+node_name: job_manager_node
+actions:
+  - action_name: set_default_sector
+    input_refs: []
+    description: "modify mf context to default sector"
+  - action_name: set_default_work
+    input_refs: []
+    description: "modify mf context to target work"
+  - action_name: schedule_simple
+    input_refs: []
+    description: "schedule jobs with rule simple"
+  - action_name: switch_to_next_job
+    input_refs: []
+    description: "switch to next job. This function is valid after calling schedule(). If queue is empty, it will return failure"
+  - action_name: wait_gui
+    input_refs: []
+    description: "pause the job manager until gui called do_schedule() service (only for isu)"
+  - action_name: schedule_only_left
+    input_refs: []
+    description: "schedule jobs with rule only_left"
+  - action_name: schedule_only_left_hard
+    input_refs: []
+    description: "schedule jobs with rule only_left_hard"
+  - action_name: schedule_only_right
+    input_refs: []
+    description: "schedule jobs with rule only_right"
+  - action_name: schedule_only_right_hard
+    input_refs: []
+    description: "schedule jobs with rule only_right_hard"
+  - action_name: schedule_isu_room2
+    input_refs: []
+    description: "schedule jobs with rule based on lidar pose"
+  - action_name: schedule_real_harvest
+    input_refs: []
+    description: "schedule jobs with rule real_harvest"
+  - action_name: schedule_only_demo
+    input_refs: []
+    description: "schedule jobs with rule demo_harvest"

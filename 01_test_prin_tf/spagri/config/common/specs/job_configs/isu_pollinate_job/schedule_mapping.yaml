@@ -1,0 +1,51 @@
+schedule_keys: # simple is always supported
+  - only_left
+  - only_right
+  - only_left_hard
+  - only_right_hard
+
+# monitoring schedule
+only_left:
+   - l2h1h1rlf0
+
+only_right:
+   - l1h1h1rrf0
+
+# left, right polinate schedule
+# only_left:
+#   - l2h1h2rlf1
+#   - l2h1h2rlf0
+#   - l2h1h1rlf0
+#   - l2h1h1rlf1
+#   - l2h2h2rlf0
+#   - l2h2h2rlf1
+#   - l2h2h1rlf1
+#   - l2h2h1rlf0
+
+
+# only_right:
+#   - l1h1h2rrf1
+#   - l1h1h2rrf0
+#   - l1h1h1rrf0
+#   - l1h1h1rrf1
+#   - l1h2h2rrf0
+#   - l1h2h2rrf1
+#   - l1h2h1rrf1
+#   - l1h2h1rrf0
+
+
+# horizon 5 , vertical 2
+
+  # - l2h1h3rlf0
+  # - l2h1h4rlf0
+  # - l2h1h3rlf0
+  # - l2h1h3rlf1
+  # - l2h1h4rlf1
+  # - l2h2h4rlf1
+  # - l2h2h3rlf1
+  # - l2h2h2rlf1
+  # - l2h2h1rlf1
+
+# only_right:
+#   - l1h1h2rrf0
+#   - l1h1h1rrf0

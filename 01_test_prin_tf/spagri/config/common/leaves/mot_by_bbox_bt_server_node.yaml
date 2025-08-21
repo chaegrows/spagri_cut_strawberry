@@ -1,0 +1,37 @@
+repo: mf_perception
+node_name: mot_by_bbox_bt_server_node
+actions:
+  - action_name: stamp_mot
+    input_refs: []
+    description: "create waypoint queue from current trajectories"
+  - action_name: get_next_waypoint
+    input_refs: []
+    description: "get next waypoint"
+  - action_name: query_target_frame_id
+    input_refs: []
+    description: "query_target_frame_id description"
+  - action_name: clear_trajectory_db
+    input_refs: []
+    description: "clear_trajectory_db description"
+  - action_name: disable_mot_pruning
+    input_refs: []
+    description: "disable MOT target pruning and clear trajectory db"
+  - action_name: enable_mot_pruning
+    input_refs: []
+    description: "enable MOT target pruning and clear trajectory db"
+  - action_name: log_mark_frame
+    input_refs: []
+    description: "mark frame for drawing future reprojected image"
+  - action_name: log_mark_targets
+    input_refs:
+      - repo: mf_perception
+        node_name: mot_by_bbox_bt_server_node
+        action_name: query_target_frame_id
+        output_name: target_frame_id
+    description: "mark targets for drawing future reprojected image"
+  - action_name: log_save_reprojected_image
+    input_refs: []
+    description: "save reprojected_image to hardcorded directory"
+  - action_name: log_init_data
+    input_refs: []
+    description: "remove targets in the memory"

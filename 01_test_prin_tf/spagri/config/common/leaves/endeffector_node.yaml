@@ -1,0 +1,34 @@
+repo: mf_endeffector
+node_name: endeffector_node
+actions:
+  - action_name: init_strawberry_harvester
+    input_refs: []
+    description: "init_strawberry_harvester description"
+  - action_name: cut_strawberry_harvester
+    input_refs: []
+    description: "cut_strawberry_harvester description"
+  - action_name: uncut_strawberry_harvester
+    input_refs:
+      - repo: mf_endeffector
+        node_name: endeffector_node
+        action_name: init_strawberry_harvester
+        output_name: test
+    description: "uncut_strawberry_harvester description"
+  - action_name: tilt_up_strawberry_harvester
+    input_refs: []
+    description: "tilt_up_strawberry_harvester description"
+  - action_name: tilt_down_strawberry_harvester
+    input_refs: []
+    description: "tilt_down_strawberry_harvester description"
+  - action_name: init_strawberry_pollinator
+    input_refs: []
+    description: "strawberry_pollinator_init description"
+  - action_name: close_strawberry_pollinator
+    input_refs: []
+    description: "close_strawberry_pollinator description"
+  - action_name: vibrate_strawberry_pollinator
+    input_refs: []
+    description: "vibrate_strawberry_pollinator description"
+  - action_name: open_strawberry_pollinator
+    input_refs: []
+    description: "open_strawberry_pollinator description"

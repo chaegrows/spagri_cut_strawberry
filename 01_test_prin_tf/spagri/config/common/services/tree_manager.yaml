@@ -1,0 +1,6 @@
+node_name: tree_manager_node
+services:
+- service_name: call_tree
+  input_keys:
+    - tree_name
+  output_keys: []

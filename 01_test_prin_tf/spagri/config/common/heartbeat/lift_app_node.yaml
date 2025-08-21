@@ -1,0 +1,14 @@
+node_name: lift_app_node
+heartbeats:
+- value: 1
+  description: sw_emergency_stop
+  severity: warning
+- value: 2
+  description: hw_emergency_stop
+  severity: error
+- value: 3
+  description: communication_error
+  severity: error
+- value: 4
+  description: hw_power_off
+  severity: error

@@ -1,0 +1,50 @@
+ultralytics
+psutil==6.0.0
+xmltodict
+tqdm
+# scipy
+Pillow
+# cython
+scikit-image
+opencv-python
+squaternion
+# pyautogui
+open3d
+# opcua
+pyserial
+pyfirmata
+# gpustat
+pytictoc
+mlflow
+future
+# tensorboard
+# onnx
+# onnxruntime
+# fastapi
+# uvicorn
+python-multipart
+segment_anything
+transforms3d
+norfair
+pygrabber
+# pymongo
+pcl
+odrive
+# motor
+# python-jose
+# passlib
+# httpx
+# paramiko
+matplotlib==3.5.1
+catkin_pkg==1.0.0
+empy==3.3.4
+lark==1.1.9
+cython_bbox
+lapx
+python-can
+python-statemachine
+squaternion
+numpy==1.25
+numpy-quaternion
+pykdtree
+piper-sdk

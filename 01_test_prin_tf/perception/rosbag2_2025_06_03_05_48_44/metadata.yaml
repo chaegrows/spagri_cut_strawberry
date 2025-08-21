@@ -1,0 +1,68 @@
+rosbag2_bagfile_information:
+  version: 5
+  storage_identifier: sqlite3
+  duration:
+    nanoseconds: 197808687104
+  starting_time:
+    nanoseconds_since_epoch: 1748929766156126976
+  message_count: 23360
+  topics_with_message_count:
+    - topic_metadata:
+        name: /joint_states
+        type: sensor_msgs/msg/JointState
+        serialization_format: cdr
+        offered_qos_profiles: ""
+      message_count: 5934
+    - topic_metadata:
+        name: /tf_static
+        type: tf2_msgs/msg/TFMessage
+        serialization_format: cdr
+        offered_qos_profiles: ""
+      message_count: 329
+    - topic_metadata:
+        name: /tf
+        type: tf2_msgs/msg/TFMessage
+        serialization_format: cdr
+        offered_qos_profiles: ""
+      message_count: 6133
+    - topic_metadata:
+        name: /camera/camera_hand/depth/camera_info
+        type: sensor_msgs/msg/CameraInfo
+        serialization_format: cdr
+        offered_qos_profiles: ""
+      message_count: 2888
+    - topic_metadata:
+        name: /camera/camera_hand/depth/image_rect_raw/compressedDepth
+        type: sensor_msgs/msg/CompressedImage
+        serialization_format: cdr
+        offered_qos_profiles: ""
+      message_count: 1787
+    - topic_metadata:
+        name: /camera/camera_hand/color/camera_info
+        type: sensor_msgs/msg/CameraInfo
+        serialization_format: cdr
+        offered_qos_profiles: ""
+      message_count: 2954
+    - topic_metadata:
+        name: /trajectory_visualizer/valid_trajectory_image/compressed
+        type: sensor_msgs/msg/CompressedImage
+        serialization_format: cdr
+        offered_qos_profiles: ""
+      message_count: 551
+    - topic_metadata:
+        name: /camera/camera_hand/color/image_rect_raw/compressed
+        type: sensor_msgs/msg/CompressedImage
+        serialization_format: cdr
+        offered_qos_profiles: ""
+      message_count: 2784
+  compression_format: ""
+  compression_mode: ""
+  relative_file_paths:
+    - rosbag2_2025_06_03_05_48_44_0.db3
+  files:
+    - path: rosbag2_2025_06_03_05_48_44_0.db3
+      starting_time:
+        nanoseconds_since_epoch: 1748929766156126976
+      duration:
+        nanoseconds: 197808687104
+      message_count: 23360

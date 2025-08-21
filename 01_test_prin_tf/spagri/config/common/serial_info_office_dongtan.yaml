@@ -1,0 +1,24 @@
+lift1400:
+  vendorid:                 "1A86"
+  productid:                "7523"
+  baudrate:                 19200
+  verbose:                  false
+  reconnect:                true
+  reconnect_delay_ms:  1000
+
+md200:
+  vendorid:                 "0403"
+  productid:                "6001"
+  baudrate:                 57600
+  verbose:                  false
+  reconnect:                true
+  reconnect_delay_ms:  1000
+
+end_effector:
+  vendorid:                 "067b"
+  productid:                "2303"
+  baudrate:                 115200
+  verbose:                  false
+  reconnect:                true
+  reconnect_delay_ms:  1000
+# 0403:6015

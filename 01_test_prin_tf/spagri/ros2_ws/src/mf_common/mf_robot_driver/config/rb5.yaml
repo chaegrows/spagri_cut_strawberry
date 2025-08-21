@@ -1,0 +1,44 @@
+robot_driver_node:
+  ros__parameters:
+    base_frame: "link0"
+    tool_frame: "link6"
+    move_group: "manipulation"
+    joint_names: '["base", "shoulder", "elbow", "wrist1", "wrist2", "wrist3"]'
+    follow_joint_trajectory_action_name: "joint_trajectory_controller/follow_joint_trajectory"
+
+    # 로봇 방향 판별을 위한 파라미터
+    robot_direction:
+      base_joint_index: 0
+      elbow_joint_index: 2
+      left_angle_min: 90.0
+      left_angle_max: 270.0
+      flipped_by_elbow_positive: true
+      left_by_angle_range: true
+
+    posj:
+      left:
+        normal:
+          zero: '[0.0, 90.0, 0.0, 0.0, 180.0, -90.0]'
+          safe: '[0.0, -30.0, 120.0, 90.0, 180.0, -90.0]'
+          home: '[0.0, 35.0, 125.0, -70.0, 90.0, -90.0]'
+          recovery: '[0.0, 0.0, 90.0, 0.0, 90.0, -90.0]'
+          flipped1: '[10.0, 90.0, 0.0, 0.0, -90.0, -90.0]'
+          flipped2: '[10.0, 90.0, -120.0, -90.0, -180.0, -90.0]'
+          flipped3: '[0.0, 30.0, -120.0, -90.0, -180.0, -90.0]'
+        flipped:
+          home: '[0.0, -35.0, -125.0, 70.0, -90.0, -90.0]'
+          recovery: '[0.0, 0.0, -90.0, 0.0, -90.0, -90.0]'
+          safe: '[0.0, 30.0, -120.0, -90.0, -180.0, -90.0]'
+      right:
+        normal:
+          zero: '[180.0, -90.0, 0.0, 0.0, -180.0, -90.0]'
+          safe: '[180.0, 30.0, -120.0, -90.0, -180.0, -90.0]'
+          home: '[180.0, -35.0, -125.0, 70.0, -90.0, -90.0]'
+          recovery: '[180.0, 0.0, -90.0, 0.0, -90.0, -90.0]'
+          flipped1: '[170.0, -90.0, 0.0, 0.0, 90.0, -90.0]'
+          flipped2: '[170.0, -90.0, 120.0, 90.0, 180.0, -90.0]'
+          flipped3: '[180.0, -30.0, 120.0, 90.0, 180.0, -90.0]'
+        flipped:
+          home: '[180.0, 35.0, 125.0, -70.0, 90.0, -90.0]'
+          recovery: '[180.0, 0.0, 90.0, 0.0, 90.0, -90.0]'
+          safe: '[180.0, -30.0, 120.0, 90.0, 180.0, -90.0]'

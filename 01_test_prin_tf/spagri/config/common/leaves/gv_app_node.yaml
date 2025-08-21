@@ -1,0 +1,9 @@
+repo: mf_mobile
+node_name: gv_app_node
+actions:
+  - action_name: set_gv_to_target_sector
+    input_refs: []
+    description: "set_to_target_sector description"
+  - action_name: set_gv_home
+    input_refs: []
+    description: "set_gv_home description"

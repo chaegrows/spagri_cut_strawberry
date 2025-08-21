@@ -1,0 +1,7 @@
+topics:
+  - "/camera/color/image_raw/compressed"
+  - "/camera/color/camera_info"
+  - "/camera/depth/image_raw/compressedDepth"
+  - "/camera/depth/camera_info"
+queue_len: 100
+force_1to1_connection: true

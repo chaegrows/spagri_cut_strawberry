@@ -1,0 +1,9 @@
+repo: mf_common
+node_name: device_health_check_node
+actions:
+  - action_name: health_check_action
+    input_refs: []
+    description: "health_check description"
+  - action_name: is_cpu_usage_ok
+    input_refs: []
+    description: "check cpu usage"

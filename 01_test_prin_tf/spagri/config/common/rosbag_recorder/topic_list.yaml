@@ -1,0 +1,11 @@
+topics:
+  # - "/camera/camera_hand/color/image_rect_raw/compressed"
+  # - "/camera/camera_hand/color/camera_info"
+  # - "/camera/camera_hand/depth/image_rect_raw/compressedDepth"
+  # - "/camera/camera_hand/depth/camera_info"
+  # - "/trajectory_visualizer/valid_trajectory_image/compressed"
+  - "/tf"
+  - "/tf_static"
+  # - "/joint_states"
+queue_len: 100
+force_1to1_connection: true

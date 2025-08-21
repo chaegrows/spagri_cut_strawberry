@@ -1,0 +1,20 @@
+node_name: manipulator_node
+heartbeats:
+  - value: 1
+    description: sw_emergency_stop
+    severity: warning
+  - value: 2
+    description: hw_emergency_stop
+    severity: error
+  - value: 3
+    description: communication_error
+    severity: error
+  - value: 4
+    description: hw_power_off
+    severity: error
+  - value: 5
+    description: robot_sleep
+    severity: error
+  - value: 6
+    description: unknown
+    severity: error

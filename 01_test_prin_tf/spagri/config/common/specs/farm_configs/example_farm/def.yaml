@@ -1,0 +1,31 @@
+name: example_farm
+pcd_map_file: example_map.pcd
+pcd_viz_map_file: example_viz_map.pcd
+sectors:
+- lane_id: 1
+  height_id: 1
+  horizon_id: 1
+  required_viewpoint: left
+  global_height: 1.2
+  global_gv_pose:
+  - 1
+  - 2
+  - 3
+  depth_to_plants: 0.6
+  configuration:
+  - 1
+  - 1
+  - 1
+  - 0.1
+  - 0.1
+  - 0.1
+lanes:
+- lane_id: 1
+  lane_home:
+  - -10
+  - 2
+  - 3
+  lane_end:
+  - 20
+  - 2
+  - 3

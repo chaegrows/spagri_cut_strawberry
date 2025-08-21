@@ -1,0 +1,37 @@
+cmake_minimum_required(VERSION 3.5)
+project(rosbag_recorder_server)
+
+# Default to C99
+if(NOT CMAKE_C_STANDARD)
+  set(CMAKE_C_STANDARD 99)
+endif()
+
+# Default to C++14
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
+
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
+# find dependencies
+find_package(ament_cmake REQUIRED)
+find_package(mf_msgs REQUIRED)
+
+# Install Python scripts
+file(GLOB MY_FILES "scripts/*")
+install(FILES ${MY_FILES} DESTINATION lib/${PROJECT_NAME})
+
+# launch 파일 불러오기
+install(DIRECTORY
+  launch
+  DESTINATION share/${PROJECT_NAME}
+)
+
+if(BUILD_TESTING)
+find_package(ament_lint_auto REQUIRED)
+ament_lint_auto_find_test_dependencies()
+endif()
+
+ament_package()

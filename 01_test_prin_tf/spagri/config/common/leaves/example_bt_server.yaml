@@ -1,0 +1,32 @@
+repo: mf_common
+node_name: example_bt_server
+actions:
+  - action_name: wait5seconds
+    input_refs: []
+    description: "-"
+  - action_name: return_random_boolean
+    input_refs: []
+    description: "-"
+  - action_name: return_true
+    input_refs: []
+    description: "-"
+  - action_name: return_false
+    input_refs: []
+    description: "-"
+  - action_name: try5times
+    input_refs: []
+    description: "-"
+  - action_name: save_pose
+    input_refs: []
+    description: "-"
+  - action_name: print_inputs
+    input_refs:
+      - repo: mf_common
+        node_name: example_bt_server
+        action_name: save_pose
+        output_name: strawberry_pose
+      - repo: mf_common
+        node_name: example_bt_server
+        action_name: save_pose
+        output_name: frame_id
+    description: "-"

@@ -1,0 +1,108 @@
+schema_sql = """
+  CREATE TABLE IF NOT EXISTS Farm_Master (
+    farm_code VARCHAR(20) PRIMARY KEY,
+    farm_name VARCHAR(50) NOT NULL,
+    farm_address VARCHAR(100),
+    farm_phone VARCHAR(15),
+    updated_at TIMESTAMP,
+    update_user VARCHAR(20),
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    create_user VARCHAR(20)
+  );
+
+  CREATE TABLE IF NOT EXISTS Crop_Master (
+    crop_code VARCHAR(20) PRIMARY KEY,
+    crop_name VARCHAR(50) NOT NULL,
+    variety VARCHAR(50),
+    crop_type VARCHAR(50),
+    description TEXT,
+    updated_at TIMESTAMP,
+    update_user VARCHAR(20),
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    create_user VARCHAR(20)
+  );
+
+  CREATE TABLE IF NOT EXISTS Farm_Crop_Mapping (
+    farm_code VARCHAR(20) REFERENCES Farm_Master(farm_code),
+    crop_code VARCHAR(20) REFERENCES Crop_Master(crop_code),
+    planting_date DATE,
+    harvest_date DATE,
+    temperature INTEGER,
+    humidity INTEGER,
+    harvest_YN CHAR(1),
+    expected_yield INTEGER,
+    unit VARCHAR(20),
+    updated_at TIMESTAMP,
+    update_user VARCHAR(20),
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    create_user VARCHAR(20)
+  );
+
+  CREATE TABLE IF NOT EXISTS File_Info (
+    file_id SERIAL PRIMARY KEY,
+    farm_code VARCHAR(20) REFERENCES Farm_Master(farm_code),
+    crop_code VARCHAR(20) REFERENCES Crop_Master(crop_code),
+    machine_code VARCHAR(20) REFERENCES 
+    file_type VARCHAR(50),
+    file_name VARCHAR(500),
+    file_path VARCHAR(1000),
+    folder_path VARCHAR(1000),
+    file_size BIGINT,
+    description TEXT,
+    shoot_date DATE,
+    updated_at TIMESTAMP,
+    update_user VARCHAR(20),
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    create_user VARCHAR(20)
+  );
+
+  CREATE TABLE IF NOT EXISTS User_Info (
+    user_code VARCHAR(20) PRIMARY KEY,
+    user_name VARCHAR(50) NOT NULL,
+    user_phone VARCHAR(15),
+    updated_at TIMESTAMP,
+    update_user VARCHAR(20),
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    create_user VARCHAR(20)
+  );
+
+  CREATE TABLE IF NOT EXISTS Machine_Info (
+    machine_code VARCHAR(20) PRIMARY KEY,
+    machine_name VARCHAR(50) NOT NULL,
+    machine_type VARCHAR(50),
+    machine_model VARCHAR(50),
+    machine_serial_number VARCHAR(50),
+    machine_manufacturer VARCHAR(50),
+    machine_year INTEGER,
+    machine_status VARCHAR(50),
+    updated_at TIMESTAMP,
+    update_user VARCHAR(20),
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    create_user VARCHAR(20)
+  );
+
+  CREATE TABLE IF NOT EXISTS Machine_Log (
+    log_id SERIAL PRIMARY KEY,
+    farm_code VARCHAR(20) REFERENCES Farm_Master(farm_code),
+    crop_code VARCHAR(20) REFERENCES Crop_Master(crop_code),
+    machine_code VARCHAR(20) REFERENCES Machine_Info(machine_code),
+    log_date DATE NOT NULL DEFAULT NOW(),
+    log_datetime TIMESTAMP NOT NULL DEFAULT NOW(),
+    log_type VARCHAR(50),
+    log_text BYTEA,
+    updated_at TIMESTAMP,
+    update_user VARCHAR(20),
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    create_user VARCHAR(20)
+  );
+
+  CREATE TABLE IF NOT EXISTS Type_Master (
+    type_group VARCHAR(20),
+    type_code VARCHAR(20),
+    type_name VARCHAR(50),
+    use_yn CHAR(1) DEFAULT 'Y',
+    sort_order INT,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  )
+"""

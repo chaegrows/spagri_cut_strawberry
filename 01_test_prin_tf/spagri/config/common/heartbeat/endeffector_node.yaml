@@ -1,0 +1,11 @@
+node_name: endeffector_node
+heartbeats:
+- value: 1
+  description: sw_emergency_stop
+  severity: warning
+- value: 2
+  description: communication_error
+  severity: error
+- value: 3
+  description: hw_power_off
+  severity: error

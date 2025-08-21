@@ -1,0 +1,8 @@
+node_name: example_bt_server
+heartbeats:
+- value: 1
+  description: I have small problem
+  severity: warning
+- value: 2
+  description: I have severe problem
+  severity: error

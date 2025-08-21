@@ -1,0 +1,9 @@
+repo: mf_common
+node_name: rosbag_recorder
+actions:
+  - action_name: enable_bag_recording
+    input_refs: []
+    description: "-"
+  - action_name: disable_bag_recording
+    input_refs: []
+    description: "-"

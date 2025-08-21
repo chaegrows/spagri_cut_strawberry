@@ -1,0 +1,7 @@
+repo: mf_manager
+node_name: pollination_server
+actions:
+  - action_name: get_target_sector
+    input_refs: []
+    description: "get_target_sector description"
+
