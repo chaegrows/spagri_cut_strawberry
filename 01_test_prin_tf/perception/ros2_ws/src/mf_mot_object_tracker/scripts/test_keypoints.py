@@ -27,7 +27,7 @@ class StableFruitKeypointTFNode(Node):
     self.bridge = CvBridge()
     self.save_counter = 0
     self.save_dir = "/workspace/ripe_fruit_crops"
-    
+    self.verbose_yolo_predict = True
     # Camera parameters (from params file)
     self.base_frame = 'camera_hand_link'
     self.depth_frame = 'camera_hand_depth_optical_frame'
@@ -35,10 +35,14 @@ class StableFruitKeypointTFNode(Node):
     self.depth_max_mm = 700
     
     # Camera intrinsics (will be updated from camera_info)
-    self.fx = 525.0  # Default values
-    self.fy = 525.0
-    self.cx = 320.0
-    self.cy = 240.0
+    # self.fx = 525.0  # Default values
+    # self.fy = 525.0
+    # self.cx = 320.0
+    # self.cy = 240.0
+    self.fx = None  # Default values
+    self.fy = None
+    self.cx = None
+    self.cy = None
     self.camera_info_received = False
     
     # Stability parameters
@@ -102,7 +106,8 @@ class StableFruitKeypointTFNode(Node):
     
     self.image_subscription = self.create_subscription(
       CompressedImage,
-      '/camera/camera_hand/color/image_rect_raw/compressed',
+      # '/camera/camera_hand/color/image_rect_raw/compressed',
+      '/camera/color/image_raw/compressed',
       self.image_callback,
       10
     )
@@ -110,7 +115,8 @@ class StableFruitKeypointTFNode(Node):
     # Subscribe to depth image
     self.depth_subscription = self.create_subscription(
       Image,
-      '/camera/camera_hand/depth/image_rect_raw',
+      # '/camera/camera_hand/depth/image_rect_raw',
+      '/camera/depth/image_raw/compressedDepth',
       self.depth_callback,
       10
     )
@@ -118,7 +124,8 @@ class StableFruitKeypointTFNode(Node):
     # Subscribe to camera info for accurate intrinsics
     self.camera_info_subscription = self.create_subscription(
       CameraInfo,
-      '/camera/camera_hand/color/camera_info',
+      # '/camera/camera_hand/color/camera_info',
+      '/camera/color/camera_info',
       self.camera_info_callback,
       10
     )
@@ -183,6 +190,22 @@ class StableFruitKeypointTFNode(Node):
     """Store the latest keypoint detection results"""
     self.latest_keypoints = msg
     print(f"Received {len(msg.keypoints)} keypoint detections")
+    if self.verbose_yolo_predict:
+      # Debug: Print detailed keypoint information
+      if len(msg.keypoints) > 1:
+        for i, keypoint in enumerate(msg.keypoints):
+          print(f"  Keypoint detection {i}:")
+          print(f"    n_keypoints: {keypoint.n_keypoints}")
+          print(f"    x array length: {len(keypoint.x)}")
+          print(f"    y array length: {len(keypoint.y)}")
+          print(f"    conf array length: {len(keypoint.conf)}")
+          if len(keypoint.x) > 0:
+            print(f"    x values: {keypoint.x}")
+            print(f"    y values: {keypoint.y}")
+            print(f"    conf values: {keypoint.conf}")
+          else:
+            print(f"    WARNING: Empty keypoint arrays!")
+    
     # Process keypoints if both bbox and keypoints are available
     if self.latest_bboxes is not None:
       self.process_keypoint_detections()
@@ -190,14 +213,15 @@ class StableFruitKeypointTFNode(Node):
   def yolo_debug_callback(self, msg):
     """Process YOLO debug image and add keypoint analysis visualization"""
     self.latest_yolo_debug = self.bridge.compressed_imgmsg_to_cv2(msg)
-    
+    # print(f"self.latest_yolo_debug.shape: {self.latest_yolo_debug.shape}")
+    # print(f"self.latest_yolo_debug: {self.latest_yolo_debug}")
     # Enhance the debug image with keypoint analysis if available
     if self.latest_keypoint_analysis:
       enhanced_img = self.draw_keypoint_analysis_on_debug_image(
         self.latest_yolo_debug.copy(), 
         self.latest_keypoint_analysis
       )
-      
+      print(f"enhanced_img.shape: {enhanced_img.shape}")
       # Publish enhanced debug image
       enhanced_msg = self.bridge.cv2_to_compressed_imgmsg(enhanced_img, dst_format='jpg')
       enhanced_msg.header = msg.header
@@ -351,7 +375,7 @@ class StableFruitKeypointTFNode(Node):
     
     if len(final_depths) == 0:
       return None
-    
+    print(f"final_depths: {final_depths}")
     # Use median as the representative depth
     median_depth_mm = np.median(final_depths)
     
@@ -380,42 +404,42 @@ class StableFruitKeypointTFNode(Node):
     
     return x, y, z
 
-  def mask_principal_axis_robust(self, mask):
-    """Enhanced PCA with better robustness"""
-    ys, xs = np.where(mask > 0)
-    if len(xs) < 10:  # Increased minimum points for better stability
-      return None
+  # def mask_principal_axis_robust(self, mask):
+  #   """Enhanced PCA with better robustness"""
+  #   ys, xs = np.where(mask > 0)
+  #   if len(xs) < 10:  # Increased minimum points for better stability
+  #     return None
     
-    pts = np.vstack([xs, ys]).T.astype(np.float32)  # (N,2)
+  #   pts = np.vstack([xs, ys]).T.astype(np.float32)  # (N,2)
 
-    # Remove outlier points using RANSAC-like approach
-    if len(pts) > 20:
-      # Sample-based outlier removal
-      center_estimate = np.median(pts, axis=0)
-      distances = np.linalg.norm(pts - center_estimate, axis=1)
-      distance_threshold = np.percentile(distances, 85)  # Keep 85% of points
-      inlier_mask = distances <= distance_threshold
-      pts = pts[inlier_mask]
+  #   # Remove outlier points using RANSAC-like approach
+  #   if len(pts) > 20:
+  #     # Sample-based outlier removal
+  #     center_estimate = np.median(pts, axis=0)
+  #     distances = np.linalg.norm(pts - center_estimate, axis=1)
+  #     distance_threshold = np.percentile(distances, 85)  # Keep 85% of points
+  #     inlier_mask = distances <= distance_threshold
+  #     pts = pts[inlier_mask]
     
-    if len(pts) < 10:
-      return None
+  #   if len(pts) < 10:
+  #     return None
 
-    # Compute PCA
-    mean = pts.mean(axis=0)
-    C = np.cov((pts - mean).T)
+  #   # Compute PCA
+  #   mean = pts.mean(axis=0)
+  #   C = np.cov((pts - mean).T)
     
-    # Add small regularization to avoid numerical issues
-    C += np.eye(2) * 1e-6
+  #   # Add small regularization to avoid numerical issues
+  #   C += np.eye(2) * 1e-6
     
-    evals, evecs = np.linalg.eig(C)
-    i_max = np.argmax(evals)
-    v = evecs[:, i_max]
-    v = v / (np.linalg.norm(v) + 1e-8)
+  #   evals, evecs = np.linalg.eig(C)
+  #   i_max = np.argmax(evals)
+  #   v = evecs[:, i_max]
+  #   v = v / (np.linalg.norm(v) + 1e-8)
     
-    # Calculate confidence based on eigenvalue ratio
-    confidence = evals[i_max] / (evals.sum() + 1e-8)
+  #   # Calculate confidence based on eigenvalue ratio
+  #   confidence = evals[i_max] / (evals.sum() + 1e-8)
     
-    return (float(mean[0]), float(mean[1])), (float(v[0]), float(v[1])), (float(evals[i_max]), float(evals[1 - i_max])), float(confidence)
+  #   return (float(mean[0]), float(mean[1])), (float(v[0]), float(v[1])), (float(evals[i_max]), float(evals[1 - i_max])), float(confidence)
 
   def smooth_angle(self, fruit_id, new_angle, confidence):
     """Apply temporal smoothing to angle measurements"""
@@ -517,6 +541,14 @@ class StableFruitKeypointTFNode(Node):
       Dictionary with orientation analysis or None
     """
     try:
+      # Debug: Print keypoint information
+      if self.verbose_yolo_predict:
+        print(f"    Keypoint debug info:")
+        print(f"      n_keypoints field: {getattr(keypoints, 'n_keypoints', 'NOT_SET')}")
+        print(f"      x array: {keypoints.x} (length: {len(keypoints.x)})")
+        print(f"      y array: {keypoints.y} (length: {len(keypoints.y)})")
+        print(f"      conf array: {keypoints.conf} (length: {len(keypoints.conf)})")
+      
       if len(keypoints.x) < 2:
         print(f"  Need at least 2 keypoints, got {len(keypoints.x)}")
         return None
@@ -524,10 +556,16 @@ class StableFruitKeypointTFNode(Node):
       # Use keypoint 0 (white) and keypoint 1 (yellow)
       white_x, white_y = keypoints.x[0], keypoints.y[0]
       yellow_x, yellow_y = keypoints.x[1], keypoints.y[1]
-      red_x, red_y = keypoints.x[2], keypoints.y[2]
+      if len(keypoints.x) >= 3:
+        red_x, red_y = keypoints.x[2], keypoints.y[2]
+      else:
+        red_x, red_y = yellow_x, yellow_y
       white_conf = keypoints.conf[0]
       yellow_conf = keypoints.conf[1]
-      red_conf = keypoints.conf[2]
+      if len(keypoints.x) >= 3:
+        red_conf = keypoints.conf[2]
+      else:
+        red_conf = 0.0
       
       # Check confidence
       min_confidence = 0.3
@@ -823,9 +861,9 @@ class StableFruitKeypointTFNode(Node):
 
   def process_keypoint_detections(self):
     """Process keypoint detections and create stable TFs"""
-    if (self.latest_image is None or self.latest_depth is None or 
-        self.latest_keypoints is None or self.latest_bboxes is None):
-      return
+    # if (self.latest_image is None or self.latest_depth is None or 
+    #     self.latest_keypoints is None or self.latest_bboxes is None):
+    #   return
     
     # Get keypoint detections
     keypoint_detections = self.latest_keypoints.keypoints

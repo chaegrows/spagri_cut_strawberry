@@ -1,10 +1,16 @@
 import numpy as np
 
 ## shared params
-rgb_topic               = '/camera/camera_hand/color/image_rect_raw/compressed'
-rgb_info_topic          = '/camera/camera_hand/color/camera_info'
-depth_topic             = '/camera/camera_hand/depth/image_rect_raw'
-depth_info_topic        = '/camera/camera_hand/depth/camera_info'
+# rgb_topic               = '/camera/camera_hand/color/image_rect_raw/compressed'
+# rgb_info_topic          = '/camera/camera_hand/color/camera_info'
+# depth_topic             = '/camera/camera_hand/depth/image_rect_raw'
+# depth_info_topic        = '/camera/camera_hand/depth/camera_info'
+
+
+rgb_topic               = '/camera/color/image_raw/compressed'
+rgb_info_topic          = '/camera/color/camera_info'
+depth_topic             = '/camera/depth/image_raw/compressedDepth'
+depth_info_topic        = '/camera/depth/camera_info'
 rgb_K = None
 rgb_D = None
 depth_K = None
@@ -27,7 +33,7 @@ use_cuda = True
 # 3: unripened fruit
 # 4: ripened fruit
 
-conf_thresh = 0.1
+conf_thresh = 0.01
 iou_thresh = 0.1
 publish_yolo_debug = True #cycy
 verbose_yolo_predict = True
