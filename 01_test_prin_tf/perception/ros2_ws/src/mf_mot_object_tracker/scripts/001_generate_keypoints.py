@@ -940,7 +940,7 @@ class StableFruitKeypointTFNode(Node):
     
     # Add frame information overlay
     frame_info = f"Frame: {self.save_counter:06d} | Detections: {len(keypoint_analysis)} | Active Tracks: {len(self.fruit_tracks)}"
-    cv2.putText(debug_img, frame_info, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+    cv2.putText(debug_img, frame_info, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0), 2)
     
     # Add timestamp
     from datetime import datetime
@@ -1190,7 +1190,7 @@ class StableFruitKeypointTFNode(Node):
     
     return reprojected_points
 
-  def draw_enhanced_debug_image(self, debug_img, keypoint_analysis, tf_reprojections):
+  #def draw_enhanced_debug_image(self, debug_img, keypoint_analysis, tf_reprojections):
     """
     Draw enhanced debug image with TF reprojections
     """
@@ -1496,8 +1496,8 @@ class StableFruitKeypointTFNode(Node):
     actual_tf_count = len([k for k in keypoint_analysis.keys() if k > 0 and k in self.latest_tf_info])
     
     # Add minimal frame information overlay
-    frame_info = f"Frame: {self.save_counter:06d} | TFs: {actual_tf_count}"
-    cv2.putText(debug_img, frame_info, (10, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+    # frame_info = f"Frame: {self.save_counter:06d} | TFs: {actual_tf_count}"
+    # cv2.putText(debug_img, frame_info, (10, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
     
     # Only proceed if there are actual TFs to draw
     if actual_tf_count == 0:
@@ -1551,7 +1551,7 @@ class StableFruitKeypointTFNode(Node):
         cv2.circle(debug_img, origin, 4, (0, 0, 0), 2)         # Black border
         
         # Add axis labels - clear and readable
-        cv2.putText(debug_img, 'Z', (short_z_axis[0]+5, short_z_axis[1]), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 0), 2)
+        # cv2.putText(debug_img, 'Z', (short_z_axis[0]+5, short_z_axis[1]), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 0), 2)
         
         # Add TF ID label - simple and clean
         tf_label = f"TF_{fruit_id}"

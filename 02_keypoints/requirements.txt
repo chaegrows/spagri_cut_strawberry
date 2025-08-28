@@ -4,4 +4,5 @@ torchvision>=0.15.0
 opencv-python>=4.5.0
 numpy<2.0.0
 pillow>=8.0.0
-matplotlib>=3.3.0 
+matplotlib>=3.3.0
+tqdm>=4.60.0 

@@ -1,0 +1,80 @@
+{
+  "dataset_name": "SPAGRI Strawberry Keypoints",
+  "description": "Strawberry keypoint detection dataset processed with YOLO",
+  "categories": [
+    {
+      "id": 1,
+      "name": "partripe",
+      "supercategory": "strawberry",
+      "keypoints": [
+        "fruit",
+        "calyx",
+        "stem"
+      ],
+      "skeleton": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "id": 2,
+      "name": "ripe",
+      "supercategory": "strawberry",
+      "keypoints": [
+        "fruit",
+        "calyx",
+        "stem"
+      ],
+      "skeleton": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "id": 3,
+      "name": "unripe",
+      "supercategory": "strawberry",
+      "keypoints": [
+        "fruit",
+        "calyx",
+        "stem"
+      ],
+      "skeleton": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ]
+      ]
+    }
+  ],
+  "statistics": {
+    "train": {
+      "total_images": 600,
+      "total_annotations": 1540,
+      "categories": 3,
+      "annotations_per_category": {
+        "1": 721,
+        "2": 732,
+        "3": 87
+      }
+    }
+  },
+  "format": "COCO",
+  "created_by": "SPAGRI batch processing script"
+}
