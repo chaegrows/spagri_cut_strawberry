@@ -26,7 +26,16 @@ build
 *.tar.bz2.part
 *.tar.xz.part
 *.tar.lzma.part
-
+*.jpg
+*.csv
+*.txt  
+*.json
+*.png
+*.jpeg
+*.jpg
+*.bmp
+*.tiff
+*.gif
 
 .onnx
 .db3
