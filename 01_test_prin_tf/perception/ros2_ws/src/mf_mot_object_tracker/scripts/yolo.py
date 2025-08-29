@@ -128,8 +128,8 @@ class YoloDetectionNode(BehaviorTreeServerNodeV2):
           yolo_out.label = int(result.boxes[idx].cls[0])
           msg_to_pub.yolo_out_array.append(yolo_out)
       self.pubs['bbox'].publish(msg_to_pub)
-
-    if 'keypoint' in P.inference_output_type and self.pubs['keypoint'].get_subscription_count() > 0:
+    self.get_logger().info(f"result.keypoints.data.shape: {result.keypoints.data.shape}")
+    if 'keypoint' in P.inference_output_type :# and self.pubs['keypoint'].get_subscription_count() > 0:
       n_det = len(result.keypoints)
       msg_to_pub = KeypointOutArray()
       msg_to_pub.header = header
@@ -142,6 +142,7 @@ class YoloDetectionNode(BehaviorTreeServerNodeV2):
         for idx_k in range(n_keypoints):
           keypoint_out.x.append(float(xyconf_array[idx, idx_k, 0]))
           keypoint_out.y.append(float(xyconf_array[idx, idx_k, 1]))
+          self.get_logger().info(f"xyconf_array[idx_k, x, y, 2]: {idx_k} {keypoint_out.x[idx_k]} {keypoint_out.y[idx_k]} {xyconf_array[idx, idx_k, 2]}")
           keypoint_out.conf.append(float(xyconf_array[idx, idx_k, 2]))
         msg_to_pub.keypoints.append(keypoint_out)
       self.pubs['keypoint'].publish(msg_to_pub)
