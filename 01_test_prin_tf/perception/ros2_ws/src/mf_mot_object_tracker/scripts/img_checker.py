@@ -14,10 +14,10 @@ Rerun 기반 CSV/폴더 T/F 라벨러 (CSV 갱신)
 사용 예 (CSV 기반)
   python img_checker.py \
     --mode csv \
-    --csv-in ./test/tf_data.csv \
-    --out-csv ./test/tf_data_labeled.csv \
+    --csv-in ./enhanced_images/tf_data.csv \
+    --out-csv tf_data_labeled.csv \
     --path-col image_filename_tf_only \
-    --base-dir ./test/test \
+    --base-dir ./enhanced_images/enhanced_images \
     --manual
 
 * 같은 파일에 덮어쓰고 싶으면 `--inplace` 사용(권장: 백업 자동 생성)
@@ -46,13 +46,14 @@ import numpy as np
 import shutil
 
 # ---------------- 공통 유틸 ----------------
+TEXT_COLOR = (0, 0, 0)
 
 def ensure_dir(p: Path):
     p.parent.mkdir(parents=True, exist_ok=True)
 
 
 def draw_info(img_bgr, text: str):
-    cv2.putText(img_bgr, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2, cv2.LINE_AA)
+    cv2.putText(img_bgr, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.8, TEXT_COLOR, 2, cv2.LINE_AA)
     return img_bgr
 
 

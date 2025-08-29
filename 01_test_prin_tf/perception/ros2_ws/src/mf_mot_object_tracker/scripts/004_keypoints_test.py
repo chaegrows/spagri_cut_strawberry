@@ -13,11 +13,11 @@ OpenCV 기반 CSV 이미지 T/F 라벨러 (Rerun 불필요)
   pip install opencv-python
 
 예시
-  python keypoints_test.py \
-    --csv-in ./test/tf_data.csv \
-    --out-csv ./test/tf_data_labeled_cv2.csv \
+  python 004_keypoints_test.py \
+    --csv-in ./enhanced_images/tf_data.csv \
+    --out-csv ./enhanced_images/tf_data_labeled_cv2.csv \
     --path-col image_filename_tf_only \
-    --base-dir ./test/test \
+    --base-dir ./enhanced_images/enhanced_images \
     --scale 0.9 \
     --manual
 
@@ -95,7 +95,7 @@ def resolve_image_path(val: str, base_dir: Path | None) -> Path:
     return p
 
 
-def put_multi_line_text(img, lines, org=(10, 30), line_height=26, color=(0,255,0), thickness=2, scale=0.7):
+def put_multi_line_text(img, lines, org=(10, 30), line_height=26, color=(255,255,255), thickness=2, scale=0.7):
     x, y = org
     for i, line in enumerate(lines):
         cv2.putText(img, line, (x, y + i*line_height), cv2.FONT_HERSHEY_SIMPLEX, scale, color, thickness, cv2.LINE_AA)
@@ -163,10 +163,10 @@ def draw_keypoints(img, row, scale=1.0):
                     
                     if conf > 0.5:  # Only draw keypoints with confidence > 0.5
                         # Draw keypoint as circle
-                        cv2.circle(img, (int(x), int(y)), 5, colors[i], -1)
+                        # cv2.circle(img, (int(x), int(y)), 5, colors[i], -1)
                         # Draw keypoint number
-                        cv2.putText(img, str(i), (int(x) + 8, int(y) - 8),
-                                   cv2.FONT_HERSHEY_SIMPLEX, 0.5, colors[i], 2)
+                        # cv2.putText(img, str(i), (int(x) + 8, int(y) - 8),
+                        #            cv2.FONT_HERSHEY_SIMPLEX, 0.5, colors[i], 2)
                         
                         # Use original coordinates for info display
                         orig_x = int(float(kp_x))
@@ -217,7 +217,8 @@ def run(args):
         total = len(rows)
 
         cv2.namedWindow("TF Labeler (cv2)", cv2.WINDOW_FULLSCREEN)
-
+        # cv2.namedWindow("TF Labeler (cv2)", cv2.WINDOW_NORMAL)
+        # cv2.setWindowProperty("TF Labeler (cv2)", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_NORMAL)
         print("\n==== 조작법 ====")
         print(" y: True / n: False / Enter: 기본값 / u: undo / s: skip / q: quit\n")
 

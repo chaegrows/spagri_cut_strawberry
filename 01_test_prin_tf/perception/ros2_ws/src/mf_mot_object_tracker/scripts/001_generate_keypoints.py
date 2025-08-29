@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
-
+# 1. z axis -90 rotation 
 from cv_bridge import CvBridge
 import rclpy
 from rclpy.node import Node
@@ -14,8 +14,17 @@ import tf2_ros
 from geometry_msgs.msg import TransformStamped, PoseStamped
 from collections import deque
 import csv
+import sys
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+# Import parameter file based on command line argument
+if len(sys.argv) > 1 and sys.argv[1] == 'strawberry_harvesting_pollination':
+  import params.mot_by_bbox.strawberry_harvesting_pollination as P
+else:
+  import params.mot_by_bbox.keypoint_tf_generation as P
+
+# Set GPU device from parameters
+os.environ["CUDA_VISIBLE_DEVICES"] = getattr(P, 'cuda_visible_devices', "3")
+
 from mf_perception_msgs.msg import YoloOutArray, YoloOut, KeypointOutArray, KeypointOut
 
 class StableFruitKeypointTFNode(Node):
@@ -24,12 +33,13 @@ class StableFruitKeypointTFNode(Node):
     
     self.bridge = CvBridge()
     self.save_counter = 0
-    self.verbose_yolo_predict = True
+    self.verbose_yolo_predict = getattr(P, 'verbose_yolo_predict', True)
+    
     # Camera parameters (from params file)
-    self.base_frame = 'camera_link'
-    self.depth_frame = 'camera_depth_optical_frame'
-    self.depth_min_mm = 0
-    self.depth_max_mm = 1000
+    self.base_frame = getattr(P, 'base_frame', 'camera_link')
+    self.depth_frame = getattr(P, 'depth_frame', 'camera_depth_optical_frame')
+    self.depth_min_mm = getattr(P, 'depth_min_mm', 0)
+    self.depth_max_mm = getattr(P, 'depth_max_mm', 1000)
     
     # Camera intrinsics (will be updated from camera_info)
     self.fx = None  # Default values
@@ -43,14 +53,10 @@ class StableFruitKeypointTFNode(Node):
     # TF information storage for reprojection
     self.latest_tf_info = {}
     
-    # Enhanced image saving parameters
-    self.declare_parameter('save_enhanced_images', True)  # Enable/disable saving
-    self.declare_parameter('enhanced_images_folder', '/root/ros2_ws/src/mf_mot_object_tracker/scripts/enhanced_images')  # Save folder path
-    self.declare_parameter('save_tf_data_csv', True)  # Enable/disable CSV saving
-    
-    self.save_enhanced_images = self.get_parameter('save_enhanced_images').get_parameter_value().bool_value
-    self.enhanced_images_folder = self.get_parameter('enhanced_images_folder').get_parameter_value().string_value
-    self.save_tf_data_csv = self.get_parameter('save_tf_data_csv').get_parameter_value().bool_value
+    # Enhanced image saving parameters (from params file)
+    self.save_enhanced_images = getattr(P, 'save_enhanced_images', True)
+    self.enhanced_images_folder = getattr(P, 'enhanced_images_folder', '/root/ros2_ws/src/mf_mot_object_tracker/scripts/enhanced_images')
+    self.save_tf_data_csv = getattr(P, 'save_tf_data_csv', True)
     
     # Create enhanced images folder if it doesn't exist
     if self.save_enhanced_images or self.save_tf_data_csv:
@@ -67,25 +73,16 @@ class StableFruitKeypointTFNode(Node):
     # Image save counter for sequential naming
     self.enhanced_image_counter = 0
     
-    # Stability parameters
-    self.declare_parameter('smoothing_window', 5)  # Temporal smoothing window size
-    self.declare_parameter('confidence_threshold', 0.7)  # Minimum confidence for PCA
-    self.declare_parameter('angle_change_threshold', 15.0)  # Max angle change per frame (degrees)
-    self.declare_parameter('position_change_threshold', 0.05)  # Max position change per frame (meters)
-    self.declare_parameter('outlier_rejection_factor', 2.0)  # Factor for outlier rejection
+    # Stability parameters (from params file)
+    self.smoothing_window = getattr(P, 'smoothing_window', 5)
+    self.confidence_threshold = getattr(P, 'confidence_threshold', 0.7)
+    self.angle_change_threshold = getattr(P, 'angle_change_threshold', 15.0)
+    self.position_change_threshold = getattr(P, 'position_change_threshold', 0.05)
+    self.outlier_rejection_factor = getattr(P, 'outlier_rejection_factor', 2.0)
     
-    # Tracking parameters
-    self.declare_parameter('tracking_distance_threshold', 0.1)  # Max distance to associate fruits (meters)
-    self.declare_parameter('max_missing_frames', 10)  # Max frames before removing a track
-    
-    # Get parameters
-    self.smoothing_window = self.get_parameter('smoothing_window').get_parameter_value().integer_value
-    self.confidence_threshold = self.get_parameter('confidence_threshold').get_parameter_value().double_value
-    self.angle_change_threshold = self.get_parameter('angle_change_threshold').get_parameter_value().double_value
-    self.position_change_threshold = self.get_parameter('position_change_threshold').get_parameter_value().double_value
-    self.outlier_rejection_factor = self.get_parameter('outlier_rejection_factor').get_parameter_value().double_value
-    self.tracking_distance_threshold = self.get_parameter('tracking_distance_threshold').get_parameter_value().double_value
-    self.max_missing_frames = self.get_parameter('max_missing_frames').get_parameter_value().integer_value
+    # Tracking parameters (from params file)
+    self.tracking_distance_threshold = getattr(P, 'tracking_distance_threshold', 0.1)
+    self.max_missing_frames = getattr(P, 'max_missing_frames', 10)
     
     # History tracking for each fruit
     self.fruit_history = {}  # fruit_id -> history data
@@ -101,57 +98,63 @@ class StableFruitKeypointTFNode(Node):
     self.tf_listener = tf2_ros.TransformListener(self.tf_buffer, self)
     
     # Publisher for enhanced debug images
+    enhanced_debug_topic = getattr(P, 'enhanced_debug_topic',   P.yolo_debug_topic)
     self.enhanced_debug_pub = self.create_publisher(
       CompressedImage, 
-      '/mf_perception/yolo_debug_enhanced/compressed', 
+      enhanced_debug_topic, 
       1
     )
     
-    # Subscribe to keypoint output, RGB image, depth image, and YOLO debug
+    # Subscribe to keypoint output, RGB image, depth image, and YOLO debug (using params)
+    keypoint_topic = getattr(P, 'keypoint_topic', P.keypoint_topic)
     self.keypoint_subscription = self.create_subscription(
       KeypointOutArray,
-      '/mf_perception/keypoint_out',
+      keypoint_topic,
       self.keypoint_callback,
       10
     )
     
     # Also subscribe to bbox for additional info
+    bbox_topic = getattr(P, 'bbox_topic', P.bbox_topic)
     self.bbox_subscription = self.create_subscription(
       YoloOutArray,
-      '/mf_perception/bbox_out',
+      bbox_topic,
       self.bbox_callback,
       10
     )
     
+    # RGB image subscription (using params)
+    rgb_topic = getattr(P, 'rgb_topic', P.rgb_topic)
     self.image_subscription = self.create_subscription(
       CompressedImage,
-      # '/camera/camera_hand/color/image_rect_raw/compressed',
-      '/camera/color/image_raw/compressed',
+      rgb_topic,
       self.image_callback,
       10
     )
     
-    # Subscribe to depth image
+    # Subscribe to depth image (using params)
+    depth_topic = getattr(P, 'depth_topic', P.depth_topic)
     self.depth_subscription = self.create_subscription(
       CompressedImage,  # 다시 CompressedImage로 변경
-      '/camera/depth/image_raw/compressedDepth',
+      depth_topic,
       self.depth_callback,
       10
     )
-    
-    # Subscribe to camera info for accurate intrinsics
+
+    # Subscribe to camera info for accurate intrinsics (using params)
+    rgb_info_topic = getattr(P, 'rgb_info_topic', P.rgb_info_topic)
     self.camera_info_subscription = self.create_subscription(
       CameraInfo,
-      # '/camera/camera_hand/color/camera_info',
-      '/camera/color/camera_info',
+      rgb_info_topic,
       self.camera_info_callback,
       10
     )
     
-    # Subscribe to YOLO debug image for enhancement
+    # Subscribe to YOLO debug image for enhancement (using params)
+    yolo_debug_topic = getattr(P, 'yolo_debug_topic', P.yolo_debug_topic)
     self.yolo_debug_subscription = self.create_subscription(
       CompressedImage,
-      '/mf_perception/yolo_debug/compressed',
+      yolo_debug_topic,
       self.yolo_debug_callback,
       10
     )
@@ -164,6 +167,26 @@ class StableFruitKeypointTFNode(Node):
     self.latest_bboxes = None
     self.latest_keypoint_analysis = {}  # Store keypoint analysis results
     self.latest_tf_info = {} # Store TF reprojections for enhanced image
+
+    # Print loaded parameters for verification
+    print("====================================================================")
+    print("Loaded parameters:")
+    print(f"  RGB topic: {rgb_topic}")
+    print(f"  Depth topic: {depth_topic}")
+    print(f"  Camera info topic: {rgb_info_topic}")
+    print(f"  Keypoint topic: {keypoint_topic}")
+    print(f"  BBox topic: {bbox_topic}")
+    print(f"  Enhanced debug topic: {enhanced_debug_topic}")
+    print(f"  Base frame: {self.base_frame}")
+    print(f"  Depth frame: {self.depth_frame}")
+    print(f"  Depth range: {self.depth_min_mm}-{self.depth_max_mm} mm")
+    print(f"  Smoothing window: {self.smoothing_window}")
+    print(f"  Confidence threshold: {self.confidence_threshold}")
+    print(f"  Tracking distance threshold: {self.tracking_distance_threshold} m")
+    print(f"  Max missing frames: {self.max_missing_frames}")
+    print(f"  Save enhanced images: {self.save_enhanced_images}")
+    print(f"  Save TF data CSV: {self.save_tf_data_csv}")
+    print("====================================================================")
 
   def initialize_csv_file(self):
     """Initialize CSV file with headers"""
@@ -601,7 +624,7 @@ class StableFruitKeypointTFNode(Node):
     
     print(f"  Debug: Final depths: {final_depths}")
     # Use median as the representative depth
-    median_depth_mm = np.median(final_depths)
+    median_depth_mm = np.max(final_depths)
     
     return {
       'depth_mm': median_depth_mm,
@@ -858,31 +881,30 @@ class StableFruitKeypointTFNode(Node):
     smoothed_angle_rad = math.radians(smoothed_angle)
     
     # Create 3D coordinate system
-    # Camera frame: X-right, Y-down, Z-forward
-    # Fruit frame: Origin at 꼭지, Z-axis rotated in camera z,y plane
+    # Camera frame: X-right, Y-down, Z-forward (depth direction)
+    # TF frame: X-forward (toward object), Y and Z based on fruit orientation
     
-    # Z축을 camera z,y 평면에서 회전
-    # 기본 Z축 [0, 0, 1]에서 z,y 평면으로 각도만큼 회전
+    # TF X축: 카메라에서 물체로의 방향 (depth 방향)
+    tf_x_axis = np.array([0.0, 0.0, 1.0])  # Camera Z-axis (forward/depth)
+    
+    # Z축을 camera z,y 평면에서 회전하여 과일의 방향성 표현
     cos_angle = math.cos(smoothed_angle_rad)
     sin_angle = math.sin(smoothed_angle_rad)
     
-    # Z축: z,y 평면에서 회전된 방향
-    z_axis = np.array([0.0, -sin_angle, cos_angle])  # -y축 방향 고려
-    z_axis = z_axis / (np.linalg.norm(z_axis) + 1e-8)
+    # TF Z축: z,y 평면에서 회전된 방향 (fruit orientation)
+    tf_z_axis = np.array([0.0, -sin_angle, cos_angle])  # -y축 방향 고려
+    tf_z_axis = tf_z_axis / (np.linalg.norm(tf_z_axis) + 1e-8)
     
-    # X축: 카메라 right 방향 유지
-    x_axis = np.array([1.0, 0.0, 0.0])
+    # TF Y축: 우수 좌표계 완성 (Y = Z × X)
+    tf_y_axis = np.cross(tf_z_axis, tf_x_axis)
+    tf_y_axis = tf_y_axis / (np.linalg.norm(tf_y_axis) + 1e-8)
     
-    # Y축: 우수 좌표계 완성 (Y = Z × X)
-    y_axis = np.cross(z_axis, x_axis)
-    y_axis = y_axis / (np.linalg.norm(y_axis) + 1e-8)
-    
-    # X축 재계산 (직교성 보장)
-    x_axis = np.cross(y_axis, z_axis)
-    x_axis = x_axis / (np.linalg.norm(x_axis) + 1e-8)
+    # TF X축 재계산 (직교성 보장) - 카메라에서 물체로의 방향
+    tf_x_axis = np.cross(tf_y_axis, tf_z_axis)
+    tf_x_axis = tf_x_axis / (np.linalg.norm(tf_x_axis) + 1e-8)
     
     # Create rotation matrix [X Y Z] (column vectors)
-    rotation_matrix = np.column_stack([x_axis, y_axis, z_axis])
+    rotation_matrix = np.column_stack([tf_x_axis, tf_y_axis, tf_z_axis])
     
     # Verify orthogonality
     det = np.linalg.det(rotation_matrix)
@@ -1060,21 +1082,10 @@ class StableFruitKeypointTFNode(Node):
         origin = tf_proj['origin']
         
         # TF 축들도 더 짧게 만들기
-        def shorten_axis(origin, axis_end, max_length=20):
-          dx = axis_end[0] - origin[0]
-          dy = axis_end[1] - origin[1]
-          length = math.sqrt(dx*dx + dy*dy)
-          if length > max_length:
-            scale = max_length / length
-            new_x = int(origin[0] + dx * scale)
-            new_y = int(origin[1] + dy * scale)
-            return (new_x, new_y)
-          return axis_end
-        
         # 축들을 더 짧게
-        short_x_axis = shorten_axis(origin, tf_proj['x_axis'], 20)
-        short_y_axis = shorten_axis(origin, tf_proj['y_axis'], 20)  
-        short_z_axis = shorten_axis(origin, tf_proj['z_axis'], 20)
+        short_x_axis = self.shorten_axis(origin, tf_proj['x_axis'], 20)
+        short_y_axis = self.shorten_axis(origin, tf_proj['y_axis'], 20)  
+        short_z_axis = self.shorten_axis(origin, tf_proj['z_axis'], 20)
         
         # Draw coordinate axes (더 얇게)
         cv2.arrowedLine(debug_img, origin, short_x_axis, (0, 0, 255), 2, cv2.LINE_AA, tipLength=0.4)    # X-axis: Red
@@ -1190,33 +1201,17 @@ class StableFruitKeypointTFNode(Node):
     
     return reprojected_points
 
-  #def draw_enhanced_debug_image(self, debug_img, keypoint_analysis, tf_reprojections):
-    """
-    Draw enhanced debug image with TF reprojections
-    """
-    for fruit_id, analysis in keypoint_analysis.items():
-      # ... existing keypoint drawing code ...
-      
-      # Draw TF reprojection if available
-      if fruit_id in tf_reprojections:
-        tf_proj = tf_reprojections[fruit_id]
-        origin = tf_proj['origin']
-        
-        # Draw coordinate axes
-        cv2.arrowedLine(debug_img, origin, tf_proj['x_axis'], (0, 0, 255), 3)    # X-axis: Red
-        cv2.arrowedLine(debug_img, origin, tf_proj['y_axis'], (0, 255, 0), 3)   # Y-axis: Green  
-        cv2.arrowedLine(debug_img, origin, tf_proj['z_axis'], (255, 0, 0), 3)   # Z-axis: Blue
-        
-        # Draw origin point
-        cv2.circle(debug_img, origin, 8, (255, 255, 255), -1)
-        cv2.circle(debug_img, origin, 10, (0, 0, 0), 2)
-        
-        # Add axis labels
-        cv2.putText(debug_img, 'X', tf_proj['x_axis'], cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
-        cv2.putText(debug_img, 'Y', tf_proj['y_axis'], cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-        cv2.putText(debug_img, 'Z', tf_proj['z_axis'], cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
-    
-    return debug_img
+  def shorten_axis(self, origin, axis_end, max_length=25):
+    """Helper function to shorten axis visualization lines"""
+    dx = axis_end[0] - origin[0]
+    dy = axis_end[1] - origin[1]
+    length = math.sqrt(dx*dx + dy*dy)
+    if length > max_length:
+      scale = max_length / length
+      new_x = int(origin[0] + dx * scale)
+      new_y = int(origin[1] + dy * scale)
+      return (new_x, new_y)
+    return axis_end
 
   def bbox_callback(self, msg):
     """Store bbox information for matching with keypoints"""
@@ -1528,20 +1523,8 @@ class StableFruitKeypointTFNode(Node):
         tf_proj = tf_reprojections[fruit_id]
         origin = tf_proj['origin']
         
-        # TF 축들을 적당한 길이로
-        def shorten_axis(origin, axis_end, max_length=25):
-          dx = axis_end[0] - origin[0]
-          dy = axis_end[1] - origin[1]
-          length = math.sqrt(dx*dx + dy*dy)
-          if length > max_length:
-            scale = max_length / length
-            new_x = int(origin[0] + dx * scale)
-            new_y = int(origin[1] + dy * scale)
-            return (new_x, new_y)
-          return axis_end
-        
         # 축들을 적당한 길이로
-        short_z_axis = shorten_axis(origin, tf_proj['z_axis'], 25)
+        short_z_axis = self.shorten_axis(origin, tf_proj['z_axis'], 25)
         
         # Draw coordinate axes - clean and clear (Z축만)
         cv2.arrowedLine(debug_img, origin, short_z_axis, (255, 255, 255), 3, cv2.LINE_AA, tipLength=0.3)   # Z-axis: Blue

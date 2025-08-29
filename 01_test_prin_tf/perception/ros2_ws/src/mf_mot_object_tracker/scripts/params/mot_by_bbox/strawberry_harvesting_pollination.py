@@ -7,9 +7,9 @@ import numpy as np
 # depth_info_topic        = '/camera/camera_hand/depth/camera_info'
 
 
-rgb_topic               = '/camera/color/image_raw/compressed'
+rgb_topic               = '/camera/color/image_rect_raw/compressed'
 rgb_info_topic          = '/camera/color/camera_info'
-depth_topic             = '/camera/depth/image_raw/compressedDepth'
+depth_topic             = '/camera/depth/image_rect_raw/compressedDepth'
 depth_info_topic        = '/camera/depth/camera_info'
 rgb_K = None
 rgb_D = None
@@ -24,7 +24,7 @@ yolo_depth_debug_topic  = '/mf_perception/yolo_depth_debug/compressed'
 #
 
 ## yolo detection
-model_path = '/workspace/ai_models/straw_keypoint.pt' # for x86_64
+model_path = '/workspace/ai_models/250828_CNU_SPAGRI_keypoints.pt' # for x86_64
 # model_path = '/workspace/ai_models/strawberry2024DB.pt' # for x86_64
 # model_path = '/workspace/ai_models/strawberry2024DB.engine' # for aarch64 (jetson)
 use_cuda = True
@@ -54,8 +54,8 @@ image_queue_size = 500 # few seconds
 light_data_queue_size = 700
 
 # odometry
-base_frame = 'camera_hand_link'
-body_frame = 'camera_hand_depth_optical_frame'
+base_frame = 'camera_link'
+body_frame = 'camera_depth_optical_frame'
 odom_source = 'tf' # 'tf' or 'topic'
 # if odom_source == 'topic':
 #   odom_topic = '/mavros/odometry/out'
